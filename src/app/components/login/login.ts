@@ -52,14 +52,14 @@ export class Login {
   }
 
   onSubmit() {
+    if (this.form.invalid) {
+      console.log(this.form.value);
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    console.log('Form Value:', this.form.value);
     this._router.navigate(['/menu']);
-
-    //   if (this.form.invalid) {
-    //     console.log(this.form.value);
-    //     this.form.markAllAsTouched();
-    //     return;
-    //   }
-
     //   const payload = this.form.getRawValue();
     //   console.log('Payload:', payload);
     //   this.userService.login(payload).subscribe({
