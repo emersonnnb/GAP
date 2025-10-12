@@ -11,9 +11,9 @@
           <input
             matInput
             placeholder="Insira o seu login"
-            formControlName="usuario"
+            formControlName="login"
           />
-        </mat-form-field>
+        </mat-form-field>        
 
         <mat-form-field appearance="outline" class="custom-input">
           <mat-icon matPrefix>lock</mat-icon>
@@ -21,7 +21,7 @@
             matInput
             [type]="hide ? 'password' : 'text'"
             placeholder="Insira sua senha"
-            formControlName="senha"
+            formControlName="password"
           />
           <button
             mat-icon-button
@@ -34,7 +34,7 @@
         </mat-form-field>
       </div>
       <div class="actions">
-        <button class="btn-entrar" type="submit">Entrar</button>
+        <button class="btn-entrar" type="submit" (click)="onSubmit()">Entrar</button>
         <span>Gerenciamento Ágil de Produtos</span>
       </div>
     </form>

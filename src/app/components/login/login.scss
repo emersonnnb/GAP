@@ -1,98 +1,123 @@
+/* ===== VARIÁVEIS ===== */
+$primary-color: #2b0b6c;
+$primary-hover: #3a0c8d;
+$background-gradient: linear-gradient(270deg, #2b0b6c 0.21%, #5415d2 99.79%);
+$box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+$radius: 20px;
+$transition: 0.3s ease;
 
-
+/* ===== CONTAINER PRINCIPAL ===== */
 .content {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(270deg, #2B0B6C 0.21%, #5415D2 99.79%);
   height: 100dvh;
-  padding: 1rem; 
+  padding: 1rem;
+  background: $background-gradient;
   box-sizing: border-box;
+}
 
-  .menu {
-    width: 100%;
-    max-width: 485px;
-    height: auto;
-    min-height: 400px;
-    padding: 48px 69px;
-    border-radius: 20px;
-    background: #FFF;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+/* ===== CARD DE LOGIN ===== */
+.menu {
+  width: 100%;
+  max-width: 485px;
+  background: #fff;
+  border-radius: $radius;
+  box-shadow: $box-shadow;
+  padding: 3rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* ===== LOGO ===== */
+  .logo {
+    margin-bottom: 3rem;
+
+    img {
+      width: 150px;
+      height: auto;
+      display: block;
+    }
+  }
+
+  /* ===== CAMPOS DE LOGIN ===== */
+  .login-inputs {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  
-    .logo {
-      padding-bottom: 59px;
-    }
+    gap: 1rem;
+    width: 100%;
+    max-width: 400px;
 
-    .login-inputs {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    .actions {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    
-      span {
-        color: #2B0B6C;
-        font-family: sans-serif;
-        font-size: 1rem;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-      }
-    
-      .btn-entrar {
-        margin-top: 64px;
-        width: 100%;
-        max-width: 465px;
-        height: 56px;
-        background-color: #2b0b6c;
-        color: #fff;
-        border: none;
-        border-radius: 15px;
-        font-size: 18px;
-        font-weight: 600;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 20px auto;    
-      
-        &:hover {
-          background-color: #3a0c8d;      
-        }  
-      
-       }
-    }    
-    .custom-input {  
+    .custom-input {
       mat-icon {
-        color: #2b0b6c;
+        color: $primary-color;
         font-size: 22px;
       }
     }
   }
-}
-/* ===== RESPONSIVIDADE ===== */
 
+  /* ===== AÇÕES ===== */
+  .actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+
+    .btn-entrar {
+      width: 100%;
+      max-width: 465px;
+      height: 56px;
+      background-color: $primary-color;
+      color: #fff;
+      border: none;
+      border-radius: 15px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color $transition, transform 0.2s;
+
+      &:hover {
+        background-color: $primary-hover;
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
+    span {
+      margin-top: 1.5rem;
+      color: $primary-color;
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: center;
+      user-select: none;
+    }
+  }
+}
+
+/* ===== RESPONSIVIDADE ===== */
 @media (max-width: 480px) {
   .menu {
-    max-width: 100%;
-    padding: 1rem;
+    padding: 2rem 1.5rem;
     border-radius: 12px;
-    min-height: 350px;
-  }
 
-  .menu p {
-    font-size: 1rem;
-    text-align: center;
+    .logo {
+      margin-bottom: 2rem;
+
+      img {
+        width: 120px;
+      }
+    }
+
+    .btn-entrar {
+      height: 50px;
+      font-size: 16px;
+    }
+
+    span {
+      font-size: 0.9rem;
+    }
   }
 }
