@@ -1,4 +1,11 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,17 +31,29 @@ import { Produtos } from '../produtos/produtos';
     RouterModule,
     MatButtonModule,
     Produtos,
-    Gestao
+    Gestao,
   ],
   templateUrl: './menu.html',
   styleUrl: './menu.scss',
 })
-export class Menu {
-
+export class Menu implements OnInit {
   selectedMenu: WritableSignal<string> = signal('produtos');
   sidebarCollapsed: WritableSignal<boolean> = signal(false);
 
   private router = inject(Router);
+
+  ngOnInit() {
+    // Colapsa o sidebar automaticamente se a tela for mobile
+    this.sidebarCollapsed.set(window.innerWidth <= 768);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    const width = (event.target as Window).innerWidth;
+    if (width <= 768) {
+      this.sidebarCollapsed.set(true);
+    }
+  }
 
   menuItems: MenuItem[] = [
     { label: 'Dashboard', icon: 'monitoring', link: 'dashboard' },
@@ -57,5 +76,5 @@ export class Menu {
   toggleSidebar() {
     this.sidebarCollapsed.set(!this.sidebarCollapsed());
   }
+  
 }
-

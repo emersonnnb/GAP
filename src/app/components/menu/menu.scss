@@ -155,3 +155,31 @@
     }
   }
 }
+
+
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+
+    .sidebar {
+      position: absolute;
+      height: 100vh;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      transition: transform 0.3s;      
+
+      &.collapsed {
+        transform: translateX(0);
+      }
+      .logo .collapse-icon {
+        display: none;
+      }
+    }
+
+    .main {
+      flex: 1;
+      margin-left: 76px;
+    }
+  }
+}

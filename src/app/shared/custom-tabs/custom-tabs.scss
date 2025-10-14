@@ -3,25 +3,30 @@
   font-family: "Inter", sans-serif;
 }
 
+/* ====== Título e ação ====== */
 .tabs-title {
   color: #2B0B6C;
   font-size: 32px;
   font-weight: 700;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
+/* ====== Wrapper de abas ====== */
 .tabs-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #e4e0f2;
+  margin-top: 16px;
 }
 
 .tab-list {
   display: flex;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 
+/* ====== Itens da aba ====== */
 .tab-item {
   display: flex;
   align-items: center;
@@ -48,37 +53,113 @@
   }
 }
 
-/* Botão de ação dinâmico à direita */
-.btn-action {
-  display: flex  ;
-  justify-content: center;
+/* ====== Botão de ação dinâmico ====== */
+.title {
+  display: flex;
   align-items: center;
-  margin-left: 8px;
-  gap: 6px;
-  background-color: #2B0B6C;
-  color: #fff;
-  border: none;
-  border-radius: 6px;      
+  gap: 8px;
   cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s   ease;
-  width: 43px;
-  height: 36px;
 
-  .material-symbols-outlined {
+  .label {
+    color: #2B0B6C;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .btn-action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2B0B6C;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    width: 43px;
+    height: 36px;
+    font-size: 20px;
+
+    &:hover {
+      background-color: #3a1ca9;
+    }
+  }
+}
+
+/* ====== Responsividade ====== */
+@media (max-width: 992px) {
+  .tabs-title {
+    font-size: 26px;
+  }
+
+  .tab-list {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .tabs-container {
+    padding: 0 1rem;
+  }
+
+  .tabs-title {
+    font-size: 24px;
+    margin-bottom: 0.5rem;
+  }
+
+  
+  .d-flex.justify-content-between.align-items-baseline {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 0.75rem;
+  }
+
+  .title {
+    .label {
+      font-size: 16px;
+    }
+
+    .btn-action {
+      width: 38px;
+      height: 34px;
+      font-size: 18px;
+    }
+  }
+
+  .tabs-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-top: 16px;
+  }
+
+  .tab-item {
+    font-size: 16px;
+    padding-bottom: 4px;
+
+    .label {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .tabs-title {
     font-size: 20px;
   }
 
-  &:hover {
-    background-color: #3a1ca9;
+  .title {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+
+    .label {
+      font-size: 15px;
+    }
   }
 
-}
-
-.label {
-  color: #2B0B6C;    
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  .tab-list {
+    gap: 1rem;
+  }
 }
