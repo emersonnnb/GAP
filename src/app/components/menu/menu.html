@@ -1,1 +1,51 @@
-<p>menu works!</p>
+<div class="app-container">  
+  <div class="sidebar" [class.collapsed]="sidebarCollapsed()">
+    <div class="logo">
+      <img src="assets/images/icon_GAP.png" alt="Logo" />
+      <span class="collapse-icon material-symbols-outlined" (click)="toggleSidebar()">
+        chevron_left
+      </span>
+    </div>    
+
+    <div class="menu">
+      @for (item of menuItems; track item.link) {
+        <div
+          class="menu-item"
+          [class.active]="selectedMenu() === item.link"
+          (click)="selectMenu(item.link)"
+        >
+          <span class="material-symbols-outlined">{{ item.icon }}</span>
+          @if (!sidebarCollapsed()) {
+            <span class="label">{{ item.label }}</span>
+          }
+        </div>
+      }
+    </div>
+  </div>
+  
+  <div class="main">
+    <div class="navbar">
+      <div>
+        <h1>Olá, Admin!</h1>
+        <h5>Organize, otimize e avance com agilidade.</h5>
+      </div>
+
+      <div class="profile">
+        <div class="profile-item">
+          <span class="material-symbols-outlined"> account_circle </span>Perfil
+        </div>
+        <div class="profile-item">
+          <span class="material-symbols-outlined"> logout </span>Sair
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      @if (selectedMenu() === 'dashboard') { <p>Conteúdo do Dashboard</p> }
+      @if (selectedMenu() === 'produtos') { <p>Conteúdo de Produtos</p> }
+      @if (selectedMenu() === 'gestao') { <p>Conteúdo de Gestão</p> }
+      @if (selectedMenu() === 'financeiro') { <p>Conteúdo Financeiro</p> }
+      @if (selectedMenu() === 'configuracao') { <p>Configuração do Sistema</p> }
+    </div>
+  </div>
+</div>

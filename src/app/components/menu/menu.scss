@@ -1,0 +1,156 @@
+.app-container {
+  display: flex;
+  height: 100vh;
+
+  .sidebar {
+    z-index: 999;
+    width: 220px;
+    background: #FFF;
+    border-radius: 0 15px 20px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    padding: 0.25rem;
+    transition: width 0.3s;
+
+    &.collapsed {
+      width: 75px;
+
+      .logo img {
+        max-width: 40px;
+      }
+
+      .menu {
+        .menu-item .label {
+          display: none;
+        }
+      }
+
+      .collapse-icon {
+        display: inline-flex; 
+        transform: rotate(180deg);
+      }
+    }
+    
+    .logo {
+      position: relative;
+      height: 112px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid #EAE0FF;
+      padding: 0 1rem;
+
+      img {
+        max-width: 100px;
+        height: auto;
+        transition: all 0.3s;
+      }
+
+      .collapse-icon {
+        position: absolute;
+        top: 99px;
+        right: -4px;
+        font-size: 17px;
+        cursor: pointer;
+        color: #2B0B6C;
+        background: #EAE0FF;
+        border-radius: 50%;
+        padding: 4px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s; 
+        
+        .sidebar.collapsed & {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  
+    .menu {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0 0.5rem;
+
+      .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        color: #2B0B6C;
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s;
+
+        &:hover {
+          background: rgba(43, 11, 108, 0.1);
+        }
+
+        &.active {
+          background: #FFEDD8;
+          color: #2B0B6C;
+
+          .material-symbols-outlined,
+          .label {
+            color: #2B0B6C;
+          }
+        }
+
+        .material-symbols-outlined {
+          font-size: 25px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .label {
+          font-family: sans-serif;
+          font-size: 20px;
+          font-weight: 500;
+          line-height: normal;
+          color: inherit;
+          transition: opacity 0.3s, width 0.3s;
+        }
+      }
+    }
+  }
+  
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  
+    .navbar {
+      height: auto;
+      background: #270963;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      font-size: 20px;
+      font-weight: 500;
+
+      .profile {
+        display: flex;
+        gap: 1rem;
+
+        .profile-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .content {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      background: #F6F4FA;
+    }
+  }
+}
