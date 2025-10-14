@@ -1,0 +1,84 @@
+.tabs-container {
+  width: 100%;
+  font-family: "Inter", sans-serif;
+}
+
+.tabs-title {
+  color: #2B0B6C;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.tabs-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e4e0f2;
+}
+
+.tab-list {
+  display: flex;
+  gap: 2rem;
+}
+
+.tab-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: #B3B1B1;
+  font-weight: 500;
+  padding-bottom: 6px;
+  border-bottom: 4px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+
+  &.active {
+    border-color: #3a1ca9;
+    color: #2B0B6C;
+  }
+
+  &:hover {
+    color: #3a1ca9;
+  }
+
+  .label {
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+/* Botão de ação dinâmico à direita */
+.btn-action {
+  display: flex  ;
+  justify-content: center;
+  align-items: center;
+  margin-left: 8px;
+  gap: 6px;
+  background-color: #2B0B6C;
+  color: #fff;
+  border: none;
+  border-radius: 6px;      
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s   ease;
+  width: 43px;
+  height: 36px;
+
+  .material-symbols-outlined {
+    font-size: 20px;
+  }
+
+  &:hover {
+    background-color: #3a1ca9;
+  }
+
+}
+
+.label {
+  color: #2B0B6C;    
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}

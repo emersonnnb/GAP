@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IAuthSuccessResponse } from '../interfaces/auth-success-response';
-import { ILoginSuccessResponse } from '../interfaces/login-success-response';
+import { IAuthSuccessResponse } from '../models/auth-success-response';
+import { ILoginSuccessResponse } from '../models/login-success-response';
 
 // 🔧 Centralize o endereço base da API
 const PORTAL_API = 'https://gapback-production.up.railway.app';

@@ -12,7 +12,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { UserService } from '@app/services/user';
 import { UserAuthService } from '@app/services/user-auth';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-login',
   standalone: true,

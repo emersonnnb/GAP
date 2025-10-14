@@ -1,0 +1,38 @@
+<div class="tabs-container mt-3">
+  <div class="d-flex justify-content-between align-items-baseline">
+    @if (title) {
+    <h2 class="tabs-title">{{ title }}</h2>
+    } @if (activeTabItem?.action) {
+
+    <div
+      class="d-flex align-items-center"
+      (click)="onAction(activeTabItem?.key)"
+    >
+      <span class="label">
+        {{ activeTabItem?.action?.label }}
+      </span>
+      <span class="btn-action material-symbols-outlined">
+        {{ activeTabItem?.action?.icon || "add" }}
+      </span>
+    </div>
+    }
+  </div>
+
+  <div class="tabs-wrapper">
+    <!-- Lista de abas -->
+    <div class="tab-list">
+      @for (tab of tabs; track tab.key) {
+      <div
+        class="tab-item"
+        [class.active]="activeTab() === tab.key"
+        (click)="setActiveTab(tab.key)"
+      >
+        @if (tab.icon) {
+        <span class="material-symbols-outlined">{{ tab.icon }}</span>
+        }
+        <span class="label">{{ tab.label }}</span>
+      </div>
+      }
+    </div>
+  </div>
+</div>
