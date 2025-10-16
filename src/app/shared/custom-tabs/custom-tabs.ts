@@ -4,7 +4,7 @@ import { CustomTabModel } from '@app/models/custom-tab.model';
 
 
 @Component({
-  selector: 'app-custom-tabs',
+  selector: 'lib-custom-tabs',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './custom-tabs.html',

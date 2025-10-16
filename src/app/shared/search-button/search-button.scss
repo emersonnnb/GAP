@@ -1,0 +1,11 @@
+::ng-deep .mat-mdc-fab-base .mat-mdc-button-persistent-ripple {
+    background-color: var(--mat-form-field-filled-container-color, var(--mat-sys-surface-variant));;
+}
+
+
+.mat-mdc-extended-fab>.mat-icon, .mat-mdc-extended-fab>.material-icons {
+  margin-left: unset;
+  margin-right: unset;
+}
+
+
