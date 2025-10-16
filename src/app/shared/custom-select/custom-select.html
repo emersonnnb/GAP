@@ -1,0 +1,39 @@
+<!-- <mat-form-field
+  class="w-100 {{ status() }}"
+  [subscriptSizing]="subscriptSizing()"
+>
+  <mat-label>{{ label() }}</mat-label>
+  <mat-select
+    [formControl]="control"
+    (opened)="openSelectHandler()"
+    [multiple]="multiple()"
+    [required]="required()"
+    (valueChange)="onChangeHandler($event)"
+    (closed)="onSelectClose()"
+    [disabled]="disabled()"
+    [value]="control.value"
+  >
+    @if (showFilter()) {
+      <mat-select-filter
+        [noResultsMessage]="'Nenhum resultado encontrado'"
+        [placeholder]="filterPlaceholder()"
+        [displayMember]="propertyName()"
+        [array]="options()"
+        (filteredReturn)="onFilterList($event)"
+        #selectFilterElement
+        [showSpinner]="showSpinner()"
+      />
+    }
+    @if (shouldAddNullOption()) {
+      <mat-option [value]="null">{{ nullDescription() }}</mat-option>
+    }
+    @for (option of filteredList(); track $index) {
+      @let propertySelected =
+        propertyId() === '@' ? option : option[propertyId()];
+
+      <mat-option [value]="propertySelected">{{
+        option[propertyName()]
+      }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field> -->
