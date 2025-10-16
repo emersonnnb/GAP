@@ -1,10 +1,10 @@
-<app-custom-tabs
+<lib-custom-tabs
   [title]="'Produtos'"
   [tabs]="tabs"
   defaultActive="catalogos"
   (tabChange)="onTabChange($event)" 
   (actionClick)="onActionClick($event)" 
-></app-custom-tabs>
+></lib-custom-tabs>
 
 <div class="content mt-3">
   @switch (activeTab()) {    

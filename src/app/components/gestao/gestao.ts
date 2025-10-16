@@ -1,10 +1,14 @@
 import { Component, signal } from '@angular/core';
 import { CustomTabModel } from '@app/models/custom-tab.model';
 import { CustomTabs } from '@app/shared/custom-tabs/custom-tabs';
+import { UsuarioGestao } from './usuario-gestao/usuario-gestao';
 
 @Component({
   selector: 'app-gestao',
-  imports: [CustomTabs],
+  imports: [
+    CustomTabs,
+    UsuarioGestao
+  ],
   templateUrl: './gestao.html'  
 })
 export class Gestao {
