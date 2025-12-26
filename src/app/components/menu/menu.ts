@@ -17,6 +17,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MenuItem } from '@app/models/menu.model';
 import { Gestao } from '../gestao/gestao';
 import { Produtos } from '../produtos/produtos';
+import { Vendas } from '@app/pages/vendas/vendas';
 
 @Component({
   selector: 'app-menu',
@@ -32,6 +33,7 @@ import { Produtos } from '../produtos/produtos';
     MatButtonModule,
     Produtos,
     Gestao,
+    Vendas
   ],
   templateUrl: './menu.html',
   styleUrl: './menu.scss',
@@ -61,6 +63,7 @@ export class Menu implements OnInit {
     { label: 'Gestão', icon: 'group', link: 'gestao' },
     { label: 'Financeiro', icon: 'currency_exchange', link: 'financeiro' },
     { label: 'Configuração', icon: 'settings', link: 'configuracao' },
+    { label: 'PDV', icon: 'sell', link: 'vendas' },
   ];
 
   selectMenu(link: string) {

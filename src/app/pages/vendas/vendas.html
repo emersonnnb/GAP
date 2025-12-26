@@ -1,0 +1,174 @@
+<div class="container" (click)="onPdvClick($event)">
+  <header>
+    <div class="section-user col-7">
+      <span class="title">PDV 01 - Vendas</span>
+      <span>Caixa 01 - Operador: Emerson</span>
+    </div>
+
+    <div class="section-scan col-5">
+      <label>Leitor / Código</label>
+
+      <div class="d-flex gap-1 w-100">
+        <input
+          #barcodeInput
+          class="input w-75"
+          type="text"
+          inputmode="numeric"
+          [(ngModel)]="codigoBarrasValue"
+          (keydown.enter)="lerCodigo()"
+          placeholder="Bip aqui e aperte Enter…"
+        />
+
+        <button class="btn btn--primary w-25" type="button" (click)="lerCodigo()">
+          Adicionar
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="col-7 card">
+      <div class="card__head">
+        <div class="title">Catálogo</div>
+
+        <input
+          class="input"
+          type="text"
+          [(ngModel)]="termoValue"
+          placeholder="Buscar produto…"
+        />
+      </div>
+
+      <div class="catalog">
+        <div class="catalog__head">
+          <div>Produto</div>
+          <div class="muted">Código</div>
+          <div class="right">Preço</div>
+          <div class="right">Add</div>
+        </div>
+
+        @for (p of produtosFiltrados(); track p.id) {
+          <div class="catalog__row">
+            <div class="strong">{{ p.nome }}</div>
+            <div class="muted mono">{{ p.sku }}</div>
+            <div class="right strong">{{ moeda(p.preco) }}</div>
+            <div class="right">
+              <button class="btn btn--sm" type="button" (click)="addProduto(p)">+</button>
+            </div>
+          </div>
+        }
+
+        @if (!produtosFiltrados().length) {
+          <div class="empty">Nenhum produto encontrado.</div>
+        }
+      </div>
+    </section>
+
+    <section class="col-5 card">
+      <div class="card__head">
+        <div class="title">Cupom</div>
+        <button
+          class="btn btn--ghost"
+          type="button"
+          (click)="limparCarrinho()"
+          [disabled]="!carrinho().length"
+        >
+          Cancelar venda
+        </button>
+      </div>
+
+      @if (carrinho().length) {
+        <div class="cupom">
+          <div class="cupom__list">
+            @for (item of carrinho(); track item.produto.id) {
+              <div class="item">
+                <div class="item__name">
+                  <div class="strong">{{ item.produto.nome }}</div>
+                  <div class="muted mono">{{ item.produto.sku }}</div>
+                </div>
+
+                <div class="qty">
+                  <button class="btn btn--icon" type="button" (click)="dec(item.produto.id)">−</button>
+                  <div class="qty__n">{{ item.qtd }}</div>
+                  <button class="btn btn--icon" type="button" (click)="inc(item.produto.id)">+</button>
+                </div>
+
+                <div class="right strong">
+                  {{ moeda(item.qtd * item.produto.preco) }}
+                </div>
+
+                <button class="btn btn--ghost btn--sm" type="button" (click)="remove(item.produto.id)">
+                  x
+                </button>
+              </div>
+            }
+          </div>
+
+          <div class="totals">
+            <div class="totals__row">
+              <span class="muted">Subtotal</span>
+              <span class="strong">{{ moeda(subtotal()) }}</span>
+            </div>
+
+            <div class="totals__row">
+              <label class="muted">Frete (R$)</label>
+              <input class="input input--sm" type="number" [(ngModel)]="freteValue" />
+            </div>
+
+            <div class="totals__row">
+              <label class="muted">Desconto (R$)</label>
+              <input class="input input--sm" type="number" [(ngModel)]="descontoValue" />
+            </div>
+
+            <div class="totalBig">
+              <div class="totalBig__label">TOTAL</div>
+              <div class="totalBig__value">{{ moeda(total()) }}</div>
+            </div>
+
+            <div class="pay">
+              <button class="btn pay__btn" type="button" (click)="abrirPagamento('DINHEIRO')">Dinheiro</button>
+              <button class="btn pay__btn" type="button" (click)="abrirPagamento('CARTAO')">Cartão</button>
+              <button class="btn pay__btn" type="button" (click)="abrirPagamento('PIX')">PIX</button>
+            </div>
+          </div>
+        </div>
+      } @else {
+        <div class="empty big">Passe os itens no leitor para começar.</div>
+      }
+    </section>
+  </main>
+
+  @if (showPagamento()) {
+    <div class="modal">
+      <div class="modal__backdrop" (click)="showPagamento.set(false)"></div>
+
+      <div class="modal__panel">
+        <div class="modal__title">Pagamento • {{ metodo() }}</div>
+
+        <div class="modal__content">
+          <div class="kpi">
+            <div class="kpi__label">TOTAL</div>
+            <div class="kpi__value">{{ moeda(total()) }}</div>
+          </div>
+
+          @if (metodo() === 'DINHEIRO') {
+            <div class="field">
+              <label>Recebido (R$)</label>
+              <input class="input" type="number" [(ngModel)]="recebidoValue" />
+            </div>
+
+            <div class="kpi">
+              <div class="kpi__label">TROCO</div>
+              <div class="kpi__value">{{ moeda(troco()) }}</div>
+            </div>
+          }
+        </div>
+
+        <div class="modal__actions">
+          <button class="btn btn--ghost" type="button" (click)="showPagamento.set(false)">Voltar</button>
+          <button class="btn btn--primary" type="button" (click)="confirmarPagamento()">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
