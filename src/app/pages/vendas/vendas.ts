@@ -14,67 +14,49 @@ import { FormsModule } from '@angular/forms';
 import { fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
-type Produto = {
-  id: number;
-  nome: string;
-  sku: string;
-  preco: number;
-};
-
-type ItemCarrinho = {
-  produto: Produto;
-  qtd: number;
-};
-
-type MetodoPagamento = 'DINHEIRO' | 'CARTAO' | 'PIX';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { VendasDialog } from './vendas-dialog/vendas-dialog';
+import { TypePagamentoEnum } from '@app/enums/type-pagamento-enum';
 
 @Component({
   selector: 'app-vendas',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatDialogModule],
   templateUrl: './vendas.html',
   styleUrl: './vendas.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Vendas {
-  private readonly destroyRef = inject(DestroyRef);
 
+  typePagamentoEnum = TypePagamentoEnum;
   readonly barcodeInput = viewChild<ElementRef<HTMLInputElement>>('barcodeInput');
 
-  // === state ===
-  readonly produtos = signal<Produto[]>([
-    { id: 1, nome: 'Camisa Básica', sku: 'CAM-001', preco: 59.9 },
-    { id: 2, nome: 'Calça Jeans', sku: 'CAL-010', preco: 149.9 },
-    { id: 3, nome: 'Tênis Casual', sku: 'TEN-200', preco: 219.9 },
-    { id: 4, nome: 'Boné', sku: 'BON-020', preco: 39.9 },
-  ]);
-
+  readonly dialog = inject(MatDialog);
+  readonly destroyRef = inject(DestroyRef);
+  
   readonly termo = signal('');
   readonly codigoBarras = signal('');
   readonly carrinho = signal<ItemCarrinho[]>([]);
   readonly desconto = signal(0);
   readonly frete = signal(0);
-
   readonly metodo = signal<MetodoPagamento>('CARTAO');
   readonly recebido = signal(0);
   readonly showPagamento = signal(false);
 
-  // === derived ===
   readonly produtosFiltrados = computed(() => {
     const t = this.termo().trim().toLowerCase();
     if (!t) return this.produtos();
     return this.produtos().filter((p) =>
-      `${p.nome} ${p.sku} ${p.id}`.toLowerCase().includes(t),
+      `${p.nome} ${p.sku} ${p.id}`.toLowerCase().includes(t)
     );
   });
 
   readonly subtotal = computed(() =>
-    this.carrinho().reduce((acc, i) => acc + i.qtd * i.produto.preco, 0),
+    this.carrinho().reduce((acc, i) => acc + i.qtd * i.produto.preco, 0)
   );
 
   readonly total = computed(() =>
-    Math.max(this.subtotal() + this.frete() - this.desconto(), 0),
+    Math.max(this.subtotal() + this.frete() - this.desconto(), 0)
   );
 
   readonly troco = computed(() => {
@@ -93,7 +75,7 @@ export class Vendas {
     fromEvent<KeyboardEvent>(document, 'keydown')
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        filter((e) => e.key === 'Escape'),
+        filter((e) => e.key === 'Escape')
       )
       .subscribe(() => this.showPagamento.set(false));
   }
@@ -121,7 +103,7 @@ export class Vendas {
 
   inc(id: number): void {
     this.carrinho.update((list) =>
-      list.map((i) => (i.produto.id === id ? { ...i, qtd: i.qtd + 1 } : i)),
+      list.map((i) => (i.produto.id === id ? { ...i, qtd: i.qtd + 1 } : i))
     );
   }
 
@@ -129,7 +111,7 @@ export class Vendas {
     this.carrinho.update((list) =>
       list
         .map((i) => (i.produto.id === id ? { ...i, qtd: i.qtd - 1 } : i))
-        .filter((i) => i.qtd > 0),
+        .filter((i) => i.qtd > 0)
     );
   }
 
@@ -173,11 +155,25 @@ export class Vendas {
     this.focusBarcode();
   }
 
-  abrirPagamento(m: MetodoPagamento): void {
-    if (!this.carrinho().length) return;
-    this.metodo.set(m);
-    this.recebido.set(m === 'DINHEIRO' ? this.total() : 0);
-    this.showPagamento.set(true);
+ abrirPagamento(type: TypePagamentoEnum): void {
+  //  abrirPagamento(m: MetodoPagamento): void {
+    const dialogRef = this.dialog.open(VendasDialog, {
+      width: '610px',
+      height: 'auto',
+      data: { 
+        total: this.total(),
+        typePagamento: type
+       },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+
+    // if (!this.carrinho().length) return;
+    // this.metodo.set(m);
+    // this.recebido.set(m === 'DINHEIRO' ? this.total() : 0);
+    // this.showPagamento.set(true);
   }
 
   confirmarPagamento(): void {
@@ -204,39 +200,60 @@ export class Vendas {
     this.limparCarrinho();
   }
 
+//Mock
+  readonly produtos = signal<Produto[]>([
+    { id: 1, nome: 'Camisa Básica', sku: 'CAM-001', preco: 59.9 },
+    { id: 2, nome: 'Calça Jeans', sku: 'CAL-010', preco: 149.9 },
+    { id: 3, nome: 'Tênis Casual', sku: 'TEN-200', preco: 219.9 },
+    { id: 4, nome: 'Boné', sku: 'BON-020', preco: 39.9 },
+  ]);
+
+
   get termoValue(): string {
     return this.termo();
   }
   set termoValue(v: string) {
     this.termo.set(v ?? '');
   }
-  
+
   get codigoBarrasValue(): string {
     return this.codigoBarras();
   }
   set codigoBarrasValue(v: string) {
     this.codigoBarras.set(v ?? '');
   }
-  
+
   get freteValue(): number {
     return this.frete();
   }
   set freteValue(v: number) {
     this.frete.set(+v || 0);
   }
-  
+
   get descontoValue(): number {
     return this.desconto();
   }
   set descontoValue(v: number) {
     this.desconto.set(+v || 0);
   }
-  
+
   get recebidoValue(): number {
     return this.recebido();
   }
   set recebidoValue(v: number) {
     this.recebido.set(+v || 0);
   }
-  
 }
+
+type Produto = {
+  id: number;
+  nome: string;
+  sku: string;
+  preco: number;
+};
+
+type ItemCarrinho = {
+  produto: Produto;
+  qtd: number;
+};
+type MetodoPagamento = 'DINHEIRO' | 'CARTAO' | 'PIX';

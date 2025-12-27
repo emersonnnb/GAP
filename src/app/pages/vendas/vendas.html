@@ -1,13 +1,12 @@
 <div class="container" (click)="onPdvClick($event)">
   <header>
-    <div class="section-user col-7">
+    <div class="section-user col-md-7 col-sm-12">
       <span class="title">PDV 01 - Vendas</span>
       <span>Caixa 01 - Operador: Emerson</span>
     </div>
 
-    <div class="section-scan col-5">
+    <div class="section-scan col-md-5 col-sm-12  mt-sm-3" >
       <label>Leitor / Código</label>
-
       <div class="d-flex gap-1 w-100">
         <input
           #barcodeInput
@@ -16,23 +15,33 @@
           inputmode="numeric"
           [(ngModel)]="codigoBarrasValue"
           (keydown.enter)="lerCodigo()"
-          placeholder="Bip aqui e aperte Enter…"
+          placeholder="Código ou código de barras"
         />
 
-        <button class="btn btn--primary w-25" type="button" (click)="lerCodigo()">
+        <button
+          class="btn btn--primary w-25 w-md-25"
+          type="button"
+          (click)="lerCodigo()"
+        >
+        <span class="d-block d-sm-none material-symbols-outlined">
+          add
+        </span>    
+        
+        <span class="d-none d-sm-block">
           Adicionar
+        </span>
         </button>
       </div>
     </div>
   </header>
 
   <main>
-    <section class="col-7 card">
+    <section class="col-md-7 col-sm-12 card">
       <div class="card__head">
         <div class="title">Catálogo</div>
 
         <input
-          class="input"
+          class="input w-100"
           type="text"
           [(ngModel)]="termoValue"
           placeholder="Buscar produto…"
@@ -41,30 +50,30 @@
 
       <div class="catalog">
         <div class="catalog__head">
-          <div>Produto</div>
-          <div class="muted">Código</div>
-          <div class="right">Preço</div>
-          <div class="right">Add</div>
+          <div class="w-25">Produto</div>
+          <div class="muted d-none d-sm-block w-25">Código</div>
+          <div class="right w-20">Preço</div>
+          <div class="right w-20">Ação</div>
         </div>
 
         @for (p of produtosFiltrados(); track p.id) {
-          <div class="catalog__row">
-            <div class="strong">{{ p.nome }}</div>
-            <div class="muted mono">{{ p.sku }}</div>
-            <div class="right strong">{{ moeda(p.preco) }}</div>
-            <div class="right">
-              <button class="btn btn--sm" type="button" (click)="addProduto(p)">+</button>
-            </div>
+        <div class="catalog__row">
+          <div class="strong w-25">{{ p.nome }}</div>
+          <div class="muted d-none d-sm-block w-25">{{ p.sku }}</div>
+          <div class="right strong w-20">{{ moeda(p.preco) }}</div>
+          <div class="right w-20">
+            <button class="btn btn--sm" type="button" (click)="addProduto(p)">
+              +
+            </button>
           </div>
-        }
-
-        @if (!produtosFiltrados().length) {
-          <div class="empty">Nenhum produto encontrado.</div>
+        </div>
+        } @if (!produtosFiltrados().length) {
+        <div class="empty">Nenhum produto encontrado.</div>
         }
       </div>
     </section>
 
-    <section class="col-5 card">
+    <section class="col-md-5 col-sm-12 card">
       <div class="card__head">
         <div class="title">Cupom</div>
         <button
@@ -78,67 +87,113 @@
       </div>
 
       @if (carrinho().length) {
-        <div class="cupom">
-          <div class="cupom__list">
-            @for (item of carrinho(); track item.produto.id) {
-              <div class="item">
-                <div class="item__name">
-                  <div class="strong">{{ item.produto.nome }}</div>
-                  <div class="muted mono">{{ item.produto.sku }}</div>
-                </div>
+      <div class="cupom">
+        <div class="cupom__list">
+          @for (item of carrinho(); track item.produto.id) {
+          <div class="item">
+            <div class="item__name">
+              <div class="strong">{{ item.produto.nome }}</div>
+              <div class="muted mono">{{ item.produto.sku }}</div>
+            </div>
 
-                <div class="qty">
-                  <button class="btn btn--icon" type="button" (click)="dec(item.produto.id)">−</button>
-                  <div class="qty__n">{{ item.qtd }}</div>
-                  <button class="btn btn--icon" type="button" (click)="inc(item.produto.id)">+</button>
-                </div>
+            <div class="qty">
+              <button
+                class="btn btn--icon"
+                type="button"
+                (click)="dec(item.produto.id)"
+              >
+                −
+              </button>
+              <div class="qty__n">{{ item.qtd }}</div>
+              <button
+                class="btn btn--icon"
+                type="button"
+                (click)="inc(item.produto.id)"
+              >
+                +
+              </button>
+            </div>
 
-                <div class="right strong">
-                  {{ moeda(item.qtd * item.produto.preco) }}
-                </div>
+            <div class="right strong">
+              {{ moeda(item.qtd * item.produto.preco) }}
+            </div>
 
-                <button class="btn btn--ghost btn--sm" type="button" (click)="remove(item.produto.id)">
-                  x
-                </button>
-              </div>
-            }
+            <button
+              class="btn btn--ghost btn--sm"
+              type="button"
+              (click)="remove(item.produto.id)"
+            >
+              x
+            </button>
+          </div>
+          }
+        </div>
+
+        <div class="totals">
+          <div class="totals__row">
+            <span class="muted">Subtotal</span>
+            <span class="strong">{{ moeda(subtotal()) }}</span>
           </div>
 
-          <div class="totals">
-            <div class="totals__row">
-              <span class="muted">Subtotal</span>
-              <span class="strong">{{ moeda(subtotal()) }}</span>
-            </div>
+          <div class="totals__row">
+            <label class="muted">Frete (R$)</label>
+            <input
+              class="input input--sm"
+              type="number"
+              [(ngModel)]="freteValue"
+            />
+          </div>
 
-            <div class="totals__row">
-              <label class="muted">Frete (R$)</label>
-              <input class="input input--sm" type="number" [(ngModel)]="freteValue" />
-            </div>
+          <div class="totals__row">
+            <label class="muted">Desconto (R$)</label>
+            <input
+              class="input input--sm"
+              type="number"
+              [(ngModel)]="descontoValue"
+            />
+          </div>
 
-            <div class="totals__row">
-              <label class="muted">Desconto (R$)</label>
-              <input class="input input--sm" type="number" [(ngModel)]="descontoValue" />
-            </div>
+          <div class="totalBig">
+            <div class="totalBig__label">TOTAL</div>
+            <div class="totalBig__value">{{ moeda(total()) }}</div>
+          </div>
 
-            <div class="totalBig">
-              <div class="totalBig__label">TOTAL</div>
-              <div class="totalBig__value">{{ moeda(total()) }}</div>
-            </div>
-
-            <div class="pay">
-              <button class="btn pay__btn" type="button" (click)="abrirPagamento('DINHEIRO')">Dinheiro</button>
+          <div class="pay">
+            <!-- <button class="btn pay__btn" type="button" (click)="abrirPagamento(typePagamentoEnum.DINHEIRO)">Dinheiro</button> -->
+            <button
+              class="btn pay__btn"
+              type="button"
+              (click)="abrirPagamento(typePagamentoEnum.CARTAO_CREDITO)"
+            >
+              Cartão crédito
+            </button>
+            <button
+              class="btn pay__btn"
+              type="button"
+              (click)="abrirPagamento(typePagamentoEnum.CARTAO_DEBITO)"
+            >
+              Cartão debito
+            </button>
+            <button
+              class="btn pay__btn"
+              type="button"
+              (click)="abrirPagamento(typePagamentoEnum.PIX)"
+            >
+              PIX
+            </button>
+            <!-- <button class="btn pay__btn" type="button" (click)="abrirPagamento('DINHEIRO')">Dinheiro</button>
               <button class="btn pay__btn" type="button" (click)="abrirPagamento('CARTAO')">Cartão</button>
-              <button class="btn pay__btn" type="button" (click)="abrirPagamento('PIX')">PIX</button>
-            </div>
+              <button class="btn pay__btn" type="button" (click)="abrirPagamento('PIX')">PIX</button> -->
           </div>
         </div>
+      </div>
       } @else {
-        <div class="empty big">Passe os itens no leitor para começar.</div>
+      <div class="empty big">Passe os itens no leitor para começar.</div>
       }
     </section>
   </main>
 
-  @if (showPagamento()) {
+  <!-- @if (showPagamento()) {
     <div class="modal">
       <div class="modal__backdrop" (click)="showPagamento.set(false)"></div>
 
@@ -170,5 +225,5 @@
         </div>
       </div>
     </div>
-  }
+  } -->
 </div>

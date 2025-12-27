@@ -1,0 +1,38 @@
+<form [formGroup]="form">
+  <div class="container">
+    <div class="color-primary">{{ title }} - {{ metodoLabel() }}</div>
+  </div>
+
+  <div class="p-3">
+    <mat-form-field class="w-100">
+      <mat-label>Total a pagar</mat-label>
+      <input
+        matInput
+        formControlName="valor"
+        mask="separator.2"
+        thousandSeparator="."
+        decimalMarker=","
+        prefix="R$ "
+        readonly=""
+      />
+    </mat-form-field>
+    <span>OBS: Ao clicar em confirmar, você será direcionado para o pagamento.</span>
+  </div>
+
+  <div class="actions">
+    <button
+      class="btn btn--ghost w-100 color-primary"
+      type="button"
+      (click)="exit()"
+    >
+      Voltar
+    </button>
+    <button
+      class="btn btn--primary w-100 color-primary"
+      type="button"
+      (click)="confirmarPagamento()"
+    >
+      Confirmar
+    </button>
+  </div>
+</form>
