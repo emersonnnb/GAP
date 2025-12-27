@@ -412,9 +412,9 @@
     }
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: 992px) {
 
-    header {
+    header,.item {
       display: block;
     }
     main {
@@ -423,6 +423,9 @@
       section {
         margin-bottom: 12px;
       }
+    }
+    .qty {
+      justify-content: space-between;
     }
   }
 }

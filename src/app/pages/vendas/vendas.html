@@ -1,11 +1,11 @@
 <div class="container" (click)="onPdvClick($event)">
   <header>
-    <div class="section-user col-md-7 col-sm-12">
+    <div class="section-user col-lg -7 col-sm-12">
       <span class="title">PDV 01 - Vendas</span>
       <span>Caixa 01 - Operador: Emerson</span>
     </div>
 
-    <div class="section-scan col-md-5 col-sm-12  mt-sm-3" >
+    <div class="section-scan col-lg -5 col-sm-12  mt-sm-3" >
       <label>Leitor / Código</label>
       <div class="d-flex gap-1 w-100">
         <input
@@ -19,7 +19,7 @@
         />
 
         <button
-          class="btn btn--primary w-25 w-md-25"
+          class="btn btn--primary w-25 w-lg -25"
           type="button"
           (click)="lerCodigo()"
         >
@@ -36,7 +36,7 @@
   </header>
 
   <main>
-    <section class="col-md-7 col-sm-12 card">
+    <section class="col-lg  -7 col-sm-12 card">
       <div class="card__head">
         <div class="title">Catálogo</div>
 
@@ -73,7 +73,7 @@
       </div>
     </section>
 
-    <section class="col-md-5 col-sm-12 card">
+    <section class="col-lg  -5 col-sm-12 card">
       <div class="card__head">
         <div class="title">Cupom</div>
         <button
@@ -93,7 +93,7 @@
           <div class="item">
             <div class="item__name">
               <div class="strong">{{ item.produto.nome }}</div>
-              <div class="muted mono">{{ item.produto.sku }}</div>
+              <div class="muted mono d-none d-sm-block">{{ item.produto.sku }}</div>
             </div>
 
             <div class="qty">
@@ -112,19 +112,19 @@
               >
                 +
               </button>
+              <div class="right strong">
+                {{ moeda(item.qtd * item.produto.preco) }}
+              </div>
+  
+              <button
+                class="btn btn--ghost btn--sm"
+                type="button"
+                (click)="remove(item.produto.id)"
+              >
+                x
+              </button>
             </div>
 
-            <div class="right strong">
-              {{ moeda(item.qtd * item.produto.preco) }}
-            </div>
-
-            <button
-              class="btn btn--ghost btn--sm"
-              type="button"
-              (click)="remove(item.produto.id)"
-            >
-              x
-            </button>
           </div>
           }
         </div>
