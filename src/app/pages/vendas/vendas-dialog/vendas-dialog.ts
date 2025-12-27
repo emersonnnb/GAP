@@ -1,4 +1,3 @@
-import { CurrencyPipe } from '@angular/common';
 import { Component, computed, inject, input, signal } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -17,7 +16,7 @@ import { NgxMaskDirective } from 'ngx-mask';
 @Component({
   selector: 'app-vendas-dialog',
   standalone: true,
-  imports: [CurrencyPipe, SharedFormsModule, NgxMaskDirective],
+  imports: [ SharedFormsModule, NgxMaskDirective],
   templateUrl: './vendas-dialog.html',
   styleUrl: './vendas-dialog.scss',
 })
