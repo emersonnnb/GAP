@@ -85,7 +85,7 @@ export class Vendas {
   }
 
   onPdvClick(event: MouseEvent): void {
-    if (event.target === event.currentTarget) this.focusBarcode();
+    //if (event.target === event.currentTarget) this.focusBarcode();
   }
 
   // === carrinho ===

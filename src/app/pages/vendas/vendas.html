@@ -24,7 +24,7 @@
           (click)="lerCodigo()"
         >
         <span class="d-block d-sm-none material-symbols-outlined">
-          add
+          add    
         </span>    
         
         <span class="d-none d-sm-block">
@@ -102,7 +102,9 @@
                 type="button"
                 (click)="dec(item.produto.id)"
               >
-                −
+              <span class="color-danger d-block d-sm-none material-symbols-outlined">
+                remove
+              </span> 
               </button>
               <div class="qty__n">{{ item.qtd }}</div>
               <button
@@ -110,7 +112,9 @@
                 type="button"
                 (click)="inc(item.produto.id)"
               >
-                +
+              <span class="color-green d-block d-sm-none material-symbols-outlined">
+                add
+              </span> 
               </button>
               <div class="right strong">
                 {{ moeda(item.qtd * item.produto.preco) }}
@@ -121,7 +125,9 @@
                 type="button"
                 (click)="remove(item.produto.id)"
               >
-                x
+              <span class="color-danger d-block d-sm-none material-symbols-outlined">
+                delete
+              </span>   
               </button>
             </div>
 
