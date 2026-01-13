@@ -16,7 +16,12 @@
     "paths": {
       "@assets/*": ["assets/*"],
       "@app/*": ["app/*"],
-      "@environments/*": ["environments/*"]
+      "@environments/*": [
+        "environments/*"
+      ],
+      "libs": [
+        "./dist/libs"
+      ]
     }
   },
   "angularCompilerOptions": {
@@ -28,7 +33,17 @@
   },
   "files": [],
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.spec.json" }
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/libs/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/libs/tsconfig.spec.json"
+    }
   ]
 }

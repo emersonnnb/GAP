@@ -50,7 +50,6 @@ export class VendasDialog {
   readonly metodoLabel = computed(() => this.typePagamentoMap[this.metodo()]);
 
   exit(): void {
-    // fechar dialog
     this.dialogRef.close();
   }
 
@@ -69,5 +68,4 @@ type ItemCarrinho = {
 
 type Produto = {
   preco: number;
-  // ...demais campos
 };

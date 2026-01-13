@@ -1,0 +1,13 @@
+<button
+  matFab extended
+  [type]="type()"
+  class="w-100"
+  (click)="onSearch()"
+  [matTooltip]="searchState() ? 'Limpar pesquisa' : 'Pesquisar'"
+>
+  @if (searchState()) {
+    <mat-icon>clear</mat-icon>
+  } @else {
+    <mat-icon>search</mat-icon>
+  }
+</button>
