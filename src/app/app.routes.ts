@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { Login } from './components/login/login';
-import { Menu } from './components/menu/menu';
+import { Login } from './pages/login/login';
+import { Menu } from './pages/menu/menu';
 import { authGuard } from './guards/auth-guard';
-import { RelatorioProduto } from './components/produtos/relatorio-produto/relatorio-produto';
-import { Gestao } from './components/gestao/gestao';
-import { Produtos } from './components/produtos/produtos';
+import { RelatorioProduto } from './pages/produtos/relatorio-produto/relatorio-produto';
+import { Gestao } from './pages/gestao/gestao';
+import { Produtos } from './pages/produtos/produtos';
 import { Vendas } from './pages/vendas/vendas';
 
 export const routes: Routes = [
