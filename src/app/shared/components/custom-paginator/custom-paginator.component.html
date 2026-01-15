@@ -1,0 +1,61 @@
+<div class="custom-paginator">
+  <div class="custom-paginator__page-size">
+    <label class="custom-paginator__page-size" for="pageSizeSelect"
+      >Itens por página:</label
+    >
+    <mat-select [value]="pageSize">
+      @for (size of pageSizeOptions; track $index) {
+        <mat-option [value]="size" (click)="onPageChange(size)">{{
+          size
+        }}</mat-option>
+      }
+    </mat-select>
+  </div>
+  <div class="custom-paginator__controls">
+    <span class="custom-paginator__controls__many">
+      <b>{{ startsFrom }}</b> - <b>{{ endsAt }}</b>
+      @if (!hasShowMany() && endsAt > totalCounter() && pageSize <= length) {
+        de
+        <strong
+          matTooltip="Clique para ver a quantidade de páginas"
+          (click)="showCountPages()"
+          >muitos</strong
+        >
+      } @else {
+        @if (pageSize <= length) {
+          de <b>{{ totalCounter() }}</b>
+        } @else {
+          de <b>{{ endsAt }}</b>
+        }
+      }
+    </span>
+    <button
+      (click)="goToPage(0)"
+      [disabled]="pageIndex === 0"
+      aria-label="Primeira Página"
+    >
+      <mat-icon>first_page</mat-icon>
+    </button>
+    <button
+      (click)="goToPage(pageIndex - 1)"
+      [disabled]="pageIndex === 0"
+      aria-label="Página Anterior"
+    >
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <button
+      (click)="goToPage(pageIndex + 1)"
+      aria-label="Próxima Página"
+      [disabled]="!showMoreCount"
+    >
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+    <button
+      (click)="goToPage(totalPages - 1)"
+      aria-label="Última Página"
+      [disabled]="!canGoToLastPage"
+    >
+      <mat-icon>last_page</mat-icon>
+    </button>
+  </div>
+</div>

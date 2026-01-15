@@ -1,0 +1,68 @@
+@use 'variables' as *;
+
+.custom-paginator {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+
+  &__page-size {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    column-gap: 10px;
+
+    label {
+      width: fit-content;
+    }
+
+    mat-select {
+      width: 100px;
+
+      ::ng-deep {
+        .mat-mdc-select-value {
+          width: 50% !important;
+        }
+      }
+    }
+  }
+
+  &__controls {
+    display: flex;
+
+    &__many {
+      strong {
+        color: $color-primary;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+
+    span {
+      margin-right: 1rem;
+    }
+
+    button {
+      border: none;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      cursor: pointer;
+
+      &:disabled {
+        cursor: not-allowed !important;
+        opacity: 0.5;
+      }
+
+      mat-icon {
+        width: 25px !important;
+        height: 25px !important;
+        font-size: 25px !important;
+      }
+    }
+  }
+}

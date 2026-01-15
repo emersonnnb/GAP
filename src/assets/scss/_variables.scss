@@ -1,0 +1,54 @@
+// Default Fonts
+$font-sm: 12px;
+$font-md: 14px;
+$font-lg: 16px;
+$font-xl: 18px;
+
+// Default Paddings
+$padding-sm: 8px;
+$padding-md: 16px;
+$padding-lg: 24px;
+$padding-xl: 32px;
+
+$padding: $padding-sm;
+
+$color-linear-blue: linear-gradient(180deg, #004C82 33.75%, #005DA0 100%);
+$color-primary: #773c3b;
+$color-primary-light: #9b4c4b;
+$color-dark-gray: #212121;
+
+$color-white: #FFFFFF;
+$color-text: #424242;
+$color-gray: #F5F5F5;
+$color-active-text: #39BCE0;
+
+
+@mixin breakpoint($point) {
+  @if $point==sm {
+    @media (min-width: 576px) {
+      $padding: $padding-sm;
+      @content;
+    }
+  }
+
+  @elseif $point==md {
+    @media (min-width: 768px) {
+      $padding: $padding-md;
+      @content;
+    }
+  }
+
+  @elseif $point==lg {
+    @media (min-width: 1024px) {
+      $padding: $padding-lg;
+      @content;
+    }
+  }
+
+  @elseif $point==xl {
+    @media (min-width: 1440px) {
+      $padding: $padding-xl;
+      @content;
+    }
+  }
+}

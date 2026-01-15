@@ -40,3 +40,16 @@
     </div>
   </div>
 </form>
+
+<app-dynamic-table
+  [columns]="columns"
+  [rows]="rows()"
+  [actions]="actions"
+  [pageSize]="pagination.pageSize"
+  [pageSizeOptions]="paginateOptionsEnum.PAGE_SIZE_OPTIONS"
+  (pageChange)="onPageChange($event)"
+  (sortChange)="onSortChange($event)"
+  (actionClick)="onActionClick($event)"
+  [totalElements]="rows()?.length || 0"
+>
+</app-dynamic-table>
