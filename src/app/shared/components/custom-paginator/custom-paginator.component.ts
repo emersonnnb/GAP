@@ -12,7 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
 import { finalize, Observable } from 'rxjs';
-import { PaginateOptionsEnum } from '@app/shared/enum';
+import { PaginateOptionsEnum } from '@app/shared/enums';
 import { PageEvent } from '@angular/material/paginator';
 
 

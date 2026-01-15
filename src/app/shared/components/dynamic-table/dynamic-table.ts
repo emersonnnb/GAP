@@ -20,7 +20,7 @@ import { FormArray } from '@angular/forms';
 import { Observable, Subject, takeUntil, filter } from 'rxjs';
 import { ActionClickEvent, Actions, Column } from '@app/shared/interfaces';
 import { ActionColumnAttr } from '@app/shared/interfaces/action-column-attr';
-import { ButtonPositionEnum, ColumnTypeEnum, PaginateOptionsEnum, TitleTypeEnum } from '@app/shared/enum';
+import { ButtonPositionEnum, ColumnTypeEnum, PaginateOptionsEnum, TitleTypeEnum } from '@app/shared/enums';
 
 @Component({
   selector: 'app-dynamic-table',

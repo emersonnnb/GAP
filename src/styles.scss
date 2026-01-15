@@ -40,3 +40,14 @@ html, body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-mdc-dialog-surface {
+  border-radius: 8px !important;
+  overflow-y: visible !important;
+}
+
+
+.cdk-overlay-pane.mat-mdc-dialog-panel {
+  max-width: none !important;
+  width: auto;
+}

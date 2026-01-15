@@ -1,22 +1,36 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CustomTabModel } from '@app/models/custom-tab.model';
 import { CustomTabs } from '@app/shared/custom-tabs/custom-tabs';
-import { UsuarioGestao } from './usuario-gestao/usuario-gestao';
+import { UsuarioList } from './usuario/usuario-list/usuario-list';
+import { MatDialog } from '@angular/material/dialog';
+import { UsuarioDialog } from './usuario/usuario-dialog/usuario-dialog';
 
 @Component({
   selector: 'app-gestao',
-  imports: [
-    CustomTabs,
-    UsuarioGestao
-  ],
-  templateUrl: './gestao.html'  
+  imports: [CustomTabs, UsuarioList],
+  templateUrl: './gestao.html',
 })
 export class Gestao {
- 
-  tabs: CustomTabModel[] = [    
-    { key: 'usuarios', label: 'Usuários', action: { label: 'Cadastrar usuário', icon: 'add' } },
-    { key: 'clientes', label: 'Clientes', action: { label: 'Cadastrar cliente', icon: 'add' }  },
-    { key: 'fornecedores', label: 'Fornecedores' , action: { label: 'Cadastrar fornecedor', icon: 'add' }   }
+
+
+  readonly dialog = inject(MatDialog);
+
+  tabs: CustomTabModel[] = [
+    {
+      key: 'usuarios',
+      label: 'Usuários',
+      action: { label: 'Cadastrar usuário', icon: 'add' },
+    },
+    {
+      key: 'clientes',
+      label: 'Clientes',
+      action: { label: 'Cadastrar cliente', icon: 'add' },
+    },
+    {
+      key: 'fornecedores',
+      label: 'Fornecedores',
+      action: { label: 'Cadastrar fornecedor', icon: 'add' },
+    },
   ];
 
   activeTab = signal('usuarios');
@@ -27,6 +41,29 @@ export class Gestao {
   }
 
   onActionClick(tabKey: string) {
-    console.log('Ação clicada na aba:', tabKey);    
+    console.log('Ação clicada na aba:', tabKey);
+
+    switch (tabKey) {
+      case 'usuarios':
+        this.openDialog(UsuarioDialog)
+        break;
+      case 'clientes':
+        break;
+      case 'fornecedores':
+        break;
+    }
+  }
+
+  openDialog(component: any) {
+    const dialogRef = this.dialog.open(component,{
+      height: 'auto',
+      width: '800px',
+      data: {},
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('FECHOU O MODAL', result);     
+    });  
   }
 }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UsuarioGestao } from './usuario-gestao';
+import { UsuarioFilter } from './usuario-filter';
 
-describe('UsuarioGestao', () => {
-  let component: UsuarioGestao;
-  let fixture: ComponentFixture<UsuarioGestao>;
+describe('UsuarioFilter', () => {
+  let component: UsuarioFilter;
+  let fixture: ComponentFixture<UsuarioFilter>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UsuarioGestao]
+      imports: [UsuarioFilter]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(UsuarioGestao);
+    fixture = TestBed.createComponent(UsuarioFilter);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

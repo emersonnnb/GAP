@@ -1,4 +1,4 @@
-import { ButtonPositionEnum } from '../enum/button-position-enum';
+import { ButtonPositionEnum } from '../enums/button-position-enum';
 
 export interface Actions {
   name: string;

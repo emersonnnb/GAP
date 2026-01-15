@@ -1,44 +1,35 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, model, output, signal } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { GestaoUsuarioService } from '@app/services/gestao-usuario.service';
 import { DynamicTable } from '@app/shared/components/dynamic-table/dynamic-table';
 import { CustomSelect } from '@app/shared/custom-select/custom-select';
-import {
-  ButtonPositionEnum,
-  ColumnTypeEnum,
-  PaginateOptionsEnum,
-} from '@app/shared/enum';
-import { FormModeEnum } from '@app/shared/enum/form-mode.enum';
-import { Page } from '@app/shared/enum/page.enum';
-import {
-  ActionClickEvent,
-  Actions,
-  Column,
-  PageEvent,
-  Sort,
-} from '@app/shared/interfaces';
+import { ColumnTypeEnum, ButtonPositionEnum, PaginateOptionsEnum } from '@app/shared/enums';
+import { FormModeEnum } from '@app/shared/enums/form-mode.enum';
+import { Page } from '@app/shared/enums/page.enum';
+import { Column, Actions, ActionClickEvent } from '@app/shared/interfaces';
 import { SearchButton } from '@app/shared/search-button/search-button';
 import { SharedFormsModule } from '@app/shared/sharedForm.module';
-import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
-import { Observable, of, Subject } from 'rxjs';
+import { NgxMaskDirective } from 'ngx-mask';
+import { Observable, Subject, of } from 'rxjs';
 
 @Component({
-  selector: 'app-usuario-gestao',
-  standalone: true,
+  selector: 'app-usuario-list',
   imports: [
     SharedFormsModule,
     CustomSelect,
     AsyncPipe,
     NgxMaskDirective,
     SearchButton,
-    DynamicTable,
+    DynamicTable,  
   ],
-  providers: [provideNgxMask()],
-  templateUrl: './usuario-gestao.html',
-  styleUrl: './usuario-gestao.scss',
+  templateUrl: './usuario-list.html',
+  styleUrl: './usuario-list.scss'
 })
-export class UsuarioGestao {
+export class UsuarioList {
+
   filter = output();
   clear = output();
 
@@ -117,16 +108,6 @@ export class UsuarioGestao {
       position: ButtonPositionEnum.RIGHT,
       conditional: () => this.canDelete,
     },
-    // {
-    //   icon: 'add_circle',
-    //   name: FormModeEnum.CADASTRAR,
-    //   tooltip: 'Cadastrar usuário',
-    //   label: 'Cadastrar usuário',
-    //   iconSet: 'material-symbols-outlined',
-    //   position: ButtonPositionEnum.BOTTOM_RIGHT,
-    //   class: 'text-center',
-    //   conditional: () => this.canCreate,
-    // },
   ];
   rows = model<any[] | []>([]);
   pagination: Page = {
@@ -138,8 +119,7 @@ export class UsuarioGestao {
     active: '',
     direction: '',
   });
-
-  //gets for permissions
+    
   get canCreate() {
     return true;
   }
@@ -250,4 +230,5 @@ export class UsuarioGestao {
     const { name, element } = event;
     const mode = name as FormModeEnum;
   }
+
 }

@@ -1,5 +1,5 @@
-import { ColumnTypeEnum } from '../enum/column-type-enum';
-import { TitleTypeEnum } from '../enum/title-type-enum';
+import { ColumnTypeEnum } from '../enums/column-type-enum';
+import { TitleTypeEnum } from '../enums/title-type-enum';
 
 export interface Column {
   name: string;
