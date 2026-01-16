@@ -2,18 +2,15 @@
   [title]="'Gestão'"
   [tabs]="tabs"
   defaultActive="usuarios"
-  (tabChange)="onTabChange($event)" 
-  (actionClick)="onActionClick($event)" 
+  (tabChange)="onTabChange($event)"
 ></lib-custom-tabs>
 
 <div class="content mt-3">
-  @switch (activeTab()) {
-    @case ('usuarios') {    
-        <app-usuario-list></app-usuario-list>
-    }
-    @case ('clientes') {      
-    }
-    @case ('fornecedores') {      
-    }
-  }
+  @switch (activeTab()) { 
+    @case ('usuarios') {
+    <app-usuario-list></app-usuario-list>
+    } 
+    @case ('clientes') {
+
+    } @case ('fornecedores') { } }
 </div>

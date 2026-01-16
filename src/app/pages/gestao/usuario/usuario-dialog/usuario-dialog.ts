@@ -38,6 +38,7 @@ export class UsuarioDialog {
   mode!: FormModeEnum;
   id!: number;
   form!: FormGroup;
+  formModeEnum = FormModeEnum;
 
   private fb = inject(FormBuilder);
   private _snackBar = inject(MatSnackBar);
@@ -57,7 +58,7 @@ export class UsuarioDialog {
   
   ngOnInit(): void {
     this.buildForm();
-    if (this.mode === FormModeEnum.EDITAR) {
+    if (this.mode !== FormModeEnum.CADASTRAR) {
       this.getById();
     }
   }
@@ -112,8 +113,7 @@ export class UsuarioDialog {
           this.dialogRef.close(false);
         },
       });
-  }
-  
+  }  
 
   save(): void {
     if (this.form.invalid) {

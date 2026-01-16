@@ -1,9 +1,9 @@
 export enum FormModeEnum {
-  VISUALIZAR = 'visualizar',
-  EDITAR = 'editar',
-  CADASTRAR = 'cadastrar',
-  CANCELAR = 'cancelar',
-  REMOVER = 'remover',
-  BLOQUEAR = 'bloquear',
-  REDEFINIR = 'redefinir'
+  VISUALIZAR = 'Visualizar',
+  EDITAR = 'Editar',
+  CADASTRAR = 'Cadastrar',
+  CANCELAR = 'Cancelar',
+  REMOVER = 'Remover',
+  BLOQUEAR = 'Bloquear',
+  REDEFINIR = 'Redefinir'
 }

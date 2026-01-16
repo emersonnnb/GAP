@@ -15,29 +15,17 @@ html, body {
   color: #16a34a
 }
 
-
-.btn {
+.btn-salvar {
+  background: #2b0b6b;
+  color: #fff;
   border: none;
-  background: transparent;
-  color: #0f172a;
   cursor: pointer;
-  font-weight: 700;
+  transition: 0.15s ease; 
 
-  &:hover { background: #f8fafc; }
-  &:disabled { opacity: 0.5; cursor: not-allowed; }
-  &:focus, &:focus-visible { outline: none; }
-}
-
-.btn--ghost { background: transparent; }
-.btn--sm { padding: 10px; }
-.btn--icon {
-  width: 34px;
-  height: 34px;
-  padding: 0;
-  display: grid;
-  place-items: center;
-  font-weight: 900;
-  border-radius: 10px;
+   &:hover { 
+    background-color: #3a1ca9;
+    color: white;
+    }
 }
 
 .inline-checkbox {
