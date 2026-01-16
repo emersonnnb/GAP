@@ -39,3 +39,42 @@ html, body {
   font-weight: 900;
   border-radius: 10px;
 }
+
+.inline-checkbox {
+  display: block;
+
+  mat-label {
+    display: block;
+  }
+}
+
+// Usado para setar o asterisco vermelho nos radio buttons
+.lib-marker {
+  &::after {
+    margin-left: 4px;
+  }
+
+  &.is-required::after {
+    content: "*";
+    color: red;
+  }
+  
+  &.is-disabled::after {
+    content: "lock";
+    font-family: "Material Icons";
+    color: gray;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+}
+
+//seta o asteristico vermelho nos inputs do form
+.mdc-floating-label--required:not(.mdc-floating-label--hide-required-marker)::after {
+  color: red !important;
+  font-size: 20px !important;
+}
+
+
+.mat-column-actions {
+  text-align: right !important;
+}

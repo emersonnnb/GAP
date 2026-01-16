@@ -29,7 +29,7 @@ export class UtilsService {
    * ```
    * @memberof UtilsService
    */
-  removeNullFields(obj: any): any {
+  static removeNullFields(obj: any): any {
     return Object.keys(obj).reduce((result: any, key: string) => {
       const value = obj[key];
       if (

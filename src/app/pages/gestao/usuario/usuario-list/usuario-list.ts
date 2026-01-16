@@ -55,7 +55,7 @@ export class UsuarioList {
       title: 'Nome',
       sortColumn: 'nome',
       headerAttrs: {
-        class: 'w-10',
+        class: 'w-25',
       },
     },
     {
@@ -64,7 +64,7 @@ export class UsuarioList {
       title: 'CPF',
       sortColumn: 'cpf',
       headerAttrs: {
-        class: 'w-10',
+        class: 'w-25',
       },
     },
     {
@@ -73,16 +73,16 @@ export class UsuarioList {
       title: 'Contato',
       sortColumn: 'contato',
       headerAttrs: {
-        class: 'w-10',
+        class: 'w-25',
       },
     },
     {
       type: ColumnTypeEnum.DATA,
-      name: 'localizacao',
-      title: 'Localização',
-      sortColumn: 'localizacao',
+      name: 'perfil',
+      title: 'Perfil',
+      sortColumn: 'perfil',
       headerAttrs: {
-        class: 'w-10',
+        class: 'w-20',
       },
     },
   ];
