@@ -1,0 +1,29 @@
+{
+  "usuario": [
+    {
+      "nome": "emerson",
+      "cpf": "05909977776",
+      "email": "teste@teste.com",
+      "telefone": "21212121212",
+      "senha": "2121321231",
+      "status": "A",
+      "id": "6984"
+    },
+    {
+      "nome": "12342134234234",
+      "cpf": "05909977776",
+      "email": "wserwer@tesjhgvsjhg.com",
+      "status": "A",
+      "id": "f607"
+    },
+    {
+      "id": "e0a3",
+      "nome": "werwerwer",
+      "cpf": "05909977776",
+      "email": "teste@teste.com",
+      "telefone": "23132132132",
+      "senha": "sdfsdfsdfsdf",
+      "status": "I"
+    }
+  ]
+}

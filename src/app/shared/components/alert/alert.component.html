@@ -1,0 +1,22 @@
+<h2 mat-dialog-title class="alert__title">{{ data.title }}</h2>
+<mat-dialog-content class="alert__content" [innerHTML]="data.description" />
+<mat-dialog-actions class="alert__actions">
+  @if (data.showYesButton) {
+    <button
+      class="w-100"
+      (click)="confirm()"
+      cdkFocusInitial
+      mat-raised-button
+      color="primary"
+    >
+      <mat-icon>check</mat-icon>
+      {{ data.yesButtonText }}
+    </button>
+  }
+  @if (data.showNoButton) {
+    <button class="w-100" mat-button mat-dialog-close color="secondary">
+      <mat-icon>close</mat-icon>
+      {{ data.noButtonText }}
+    </button>
+  }
+</mat-dialog-actions>

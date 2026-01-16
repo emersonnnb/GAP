@@ -1,18 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AlertComponent } from './alert.component';
 
-import { UsuarioFilter } from './usuario-filter';
-
-describe('UsuarioFilter', () => {
-  let component: UsuarioFilter;
-  let fixture: ComponentFixture<UsuarioFilter>;
+describe('AlertComponent', () => {
+  let component: AlertComponent;
+  let fixture: ComponentFixture<AlertComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UsuarioFilter]
-    })
-    .compileComponents();
+      imports: [AlertComponent]
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(UsuarioFilter);
+    fixture = TestBed.createComponent(AlertComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

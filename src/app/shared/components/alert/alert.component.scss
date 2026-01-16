@@ -1,0 +1,35 @@
+@import 'variables';
+
+.alert{
+  &__title {
+    text-align: center;
+  }
+
+  &__content {
+    text-align: center;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: column;
+
+    button {
+      margin-left: 0 !important;
+      max-width: auto;
+      column-gap: 5px;
+
+      &[color='secondary'] {
+        background-color: $color-text !important;
+        color: $color-gray !important;
+      }
+
+      mat-icon {
+        font-size: 13px !important;
+        margin-right: 5px !important;
+      }
+    }
+  }
+}

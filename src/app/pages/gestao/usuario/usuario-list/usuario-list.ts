@@ -1,19 +1,45 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, inject, model, output, signal } from '@angular/core';
+import { AsyncPipe, TitleCasePipe } from '@angular/common';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  model,
+  output,
+  signal,
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { GestaoUsuarioService } from '@app/pages/gestao/usuario/services/gestao-usuario.service';
 import { DynamicTable } from '@app/shared/components/dynamic-table/dynamic-table';
 import { CustomSelect } from '@app/shared/custom-select/custom-select';
-import { ColumnTypeEnum, ButtonPositionEnum, PaginateOptionsEnum } from '@app/shared/enums';
+import {
+  ColumnTypeEnum,
+  ButtonPositionEnum,
+  PaginateOptionsEnum,
+} from '@app/shared/enums';
 import { FormModeEnum } from '@app/shared/enums/form-mode.enum';
 import { Page } from '@app/shared/enums/page.enum';
 import { Column, Actions, ActionClickEvent } from '@app/shared/interfaces';
 import { SearchButton } from '@app/shared/search-button/search-button';
 import { SharedFormsModule } from '@app/shared/sharedForm.module';
 import { NgxMaskDirective } from 'ngx-mask';
-import { Observable, Subject, of } from 'rxjs';
+import { Observable, filter, of, switchMap } from 'rxjs';
+import { UsuarioDialog } from '../usuario-dialog/usuario-dialog';
+import { AlertService } from '@app/shared/components/alert/services/alert.service';
+import {
+  AffirmationMessages,
+  ConfirmationMessages,
+} from '@app/shared/enums/messages.enum';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { HttpErrorResponse } from '@angular/common/http';
+import { StatusEnum, statusMap } from '@app/shared/enums/status.enum';
+import { DynamicTableColumnDefDirective } from '@app/shared/directive/column-template-def.directive';
+import { TelefoneMaskSemDDI } from '@app/shared/masks/telefone.mask';
+import { TelefoneMaskPipe } from '@app/shared/pipes/telefone-mask.pipe';
+import { CpfMaskPipe } from '@app/shared/pipes/cpf-mask.pipe';
 
 @Component({
   selector: 'app-usuario-list',
@@ -23,25 +49,31 @@ import { Observable, Subject, of } from 'rxjs';
     AsyncPipe,
     NgxMaskDirective,
     SearchButton,
-    DynamicTable,  
+    DynamicTable,
+    MatSnackBarModule,
+    DynamicTableColumnDefDirective,
+    TelefoneMaskPipe,
+    CpfMaskPipe,
+    TitleCasePipe 
   ],
   templateUrl: './usuario-list.html',
-  styleUrl: './usuario-list.scss'
+  styleUrl: './usuario-list.scss',
 })
 export class UsuarioList {
-
   filter = output();
   clear = output();
 
   searchForm!: FormGroup;
   searchByList$!: Observable<any[]>;
-
   selectedSearchField = signal<number | null>(null);
+  telefoneMask = TelefoneMaskSemDDI;
 
-  private fb = inject(FormBuilder);
-  private gestaoUsuarioService = inject(GestaoUsuarioService);
-
-  private destroy$ = new Subject<void>();
+  private _fb = inject(FormBuilder);
+  private _dialog = inject(MatDialog);
+  private _alertService = inject(AlertService);
+  private _gestaoUsuarioService = inject(GestaoUsuarioService);
+  private _snackBar = inject(MatSnackBar);
+  private readonly _destroyRef = inject(DestroyRef);
 
   private searchOptions = [
     { id: 1, field: 'nome', label: 'Nome' },
@@ -50,7 +82,7 @@ export class UsuarioList {
 
   columns: Column[] = [
     {
-      type: ColumnTypeEnum.DATA,
+      type: ColumnTypeEnum.SLOT,
       name: 'nome',
       title: 'Nome',
       sortColumn: 'nome',
@@ -59,7 +91,7 @@ export class UsuarioList {
       },
     },
     {
-      type: ColumnTypeEnum.DATA,
+      type: ColumnTypeEnum.SLOT,
       name: 'cpf',
       title: 'CPF',
       sortColumn: 'cpf',
@@ -68,8 +100,8 @@ export class UsuarioList {
       },
     },
     {
-      type: ColumnTypeEnum.DATA,
-      name: 'contato',
+      type: ColumnTypeEnum.SLOT,
+      name: 'telefone',
       title: 'Contato',
       sortColumn: 'contato',
       headerAttrs: {
@@ -78,8 +110,8 @@ export class UsuarioList {
     },
     {
       type: ColumnTypeEnum.DATA,
-      name: 'perfil',
-      title: 'Perfil',
+      name: '_status',
+      title: 'Status',
       sortColumn: 'perfil',
       headerAttrs: {
         class: 'w-20',
@@ -108,6 +140,16 @@ export class UsuarioList {
       position: ButtonPositionEnum.RIGHT,
       conditional: () => this.canDelete,
     },
+    {
+      icon: 'add_circle',
+      name: FormModeEnum.CADASTRAR,
+      tooltip: 'Cadastrar novo usuário',
+      label: 'Cadastrar novo usuário',
+      iconSet: 'material-symbols-outlined',
+      position: ButtonPositionEnum.BOTTOM_RIGHT,
+      class: 'text-center',
+      conditional: () => this.canCreate,
+    },
   ];
   rows = model<any[] | []>([]);
   pagination: Page = {
@@ -119,51 +161,37 @@ export class UsuarioList {
     active: '',
     direction: '',
   });
-    
-  get canCreate() {
-    return true;
-  }
-
-  get canEdit() {
-    return true;
-  }
-
-  get canView() {
-    return true;
-  }
-
-  get canDelete() {
-    return true;
-  }
 
   ngOnInit(): void {
     this.buildSearchForm();
     this.getData();
   }
 
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
   getData() {
-    this.gestaoUsuarioService.getAllUsers().subscribe((response) => {
-      this.rows.set(response);
+    this._gestaoUsuarioService.getAllUsers().subscribe((response) => {
+      this.rows.set(
+        response.map((item) => {
+          return {
+            ...item,
+             _status: statusMap[item.status as StatusEnum] ?? '-'             
+          };
+        })
+      );
     });
   }
 
   private buildSearchForm(): void {
-    this.searchForm = this.fb.group({
-      pageStart: this.fb.control<number>(0),
-      pageSize: this.fb.control<number>(10),
-      pageSort: this.fb.control<string | null>(null),
-      pageOrder: this.fb.control<'ASC' | 'DESC'>('ASC'),
-      filtroPesquisa: this.fb.control<number | null>(this.searchOptions[0].id),
-      nome: this.fb.control<string | null>(null, [
+    this.searchForm = this._fb.group({
+      pageStart: this._fb.control<number>(0),
+      pageSize: this._fb.control<number>(10),
+      pageSort: this._fb.control<string | null>(null),
+      pageOrder: this._fb.control<'ASC' | 'DESC'>('ASC'),
+      filtroPesquisa: this._fb.control<number | null>(this.searchOptions[0].id),
+      nome: this._fb.control<string | null>(null, [
         Validators.minLength(3),
         Validators.maxLength(150),
       ]),
-      cpf: this.fb.control<number | null>(null),
+      cpf: this._fb.control<number | null>(null),
     });
 
     this.selectedSearchField.set(this.searchForm.get('filtroPesquisa')?.value);
@@ -218,17 +246,84 @@ export class UsuarioList {
   onPageChange(event: PageEvent): void {
     this.pagination.pageStart = event.pageIndex;
     this.pagination.pageSize = event.pageSize;
-    //this.loadData();
+    this.getData();
   }
 
   onSortChange(sort: Sort): void {
     this.currentSort.set(sort);
-    //this.loadData();
+    this.getData();
   }
 
   onActionClick(event: ActionClickEvent): void {
-    const { name, element } = event;
-    const mode = name as FormModeEnum;
+    const action = event.name as FormModeEnum;
+
+    if (action === FormModeEnum.REMOVER) {
+      this.deleteUser(event.element?.id);
+      return;
+    }
+
+    const data: any = { mode: action };
+
+    if (action !== FormModeEnum.CADASTRAR) {
+      data.id = event.element?.id;
+    }
+
+    const dialogRef = this._dialog.open(UsuarioDialog, {
+      height: 'auto',
+      width: '800px',
+      disableClose: true,
+      data,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {      
+      if (result) {
+        this.getData();
+      }
+    });
   }
 
+  private deleteUser(id: number): void {
+    this._alertService
+      .alert({
+        title: 'Excluir Usuário',
+        description: ConfirmationMessages.EXCLUDE_RECORD,
+      })
+      .pipe(
+        takeUntilDestroyed(this._destroyRef),
+        filter((result) => result),
+        switchMap(() => {
+          return this._gestaoUsuarioService.delete(id);
+        })
+      )
+      .subscribe({
+        next: () => {
+          this._snackBar.open('Usuário Excluido com sucesso!', 'Fechar', {
+            duration: 3000,
+          });
+          this.getData();
+        },
+        error: (error: HttpErrorResponse) => {
+          const message =
+            error?.error?.message ||            
+            AffirmationMessages.SYSTEM_UNAVAILABLE;
+          this._alertService.error(message, 'httpError');
+        },
+      });
+  }
+
+  get canCreate() {
+    return true;
+  }
+
+  get canEdit() {
+    return true;
+  }
+
+  get canView() {
+    return true;
+  }
+
+  get canDelete() {
+    return true;
+  }
 }
