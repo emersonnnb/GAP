@@ -3,7 +3,7 @@ import { Component, inject, model, output, signal } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
-import { GestaoUsuarioService } from '@app/services/gestao-usuario.service';
+import { GestaoUsuarioService } from '@app/pages/gestao/usuario/services/gestao-usuario.service';
 import { DynamicTable } from '@app/shared/components/dynamic-table/dynamic-table';
 import { CustomSelect } from '@app/shared/custom-select/custom-select';
 import { ColumnTypeEnum, ButtonPositionEnum, PaginateOptionsEnum } from '@app/shared/enums';
