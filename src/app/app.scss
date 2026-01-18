@@ -15,6 +15,12 @@ html, body {
   color: #16a34a
 }
 
+.btn.disabled, .btn:disabled, fieldset:disabled .btn{
+  background: #c4c4c4 !important;
+  color: #6b6b6b !important;
+  cursor: not-allowed !important;
+}
+
 .btn-salvar {
   background: #2b0b6b;
   color: #fff;

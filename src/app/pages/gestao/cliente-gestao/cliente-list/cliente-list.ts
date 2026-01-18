@@ -17,7 +17,7 @@ import { TelefoneMaskSemDDI } from '@app/shared/masks/telefone.mask';
 import { Observable, of, filter, switchMap } from 'rxjs';
 import { GestaoUsuarioService } from '../../usuario/services/gestao-usuario.service';
 import { UsuarioDialog } from '../../usuario/usuario-dialog/usuario-dialog';
-import { AsyncPipe, TitleCasePipe } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, TitleCasePipe } from '@angular/common';
 import { DynamicTable } from '@app/shared/components/dynamic-table/dynamic-table';
 import { CustomSelect } from '@app/shared/custom-select/custom-select';
 import { DynamicTableColumnDefDirective } from '@app/shared/directive/column-template-def.directive';
@@ -28,6 +28,7 @@ import { SharedFormsModule } from '@app/shared/sharedForm.module';
 import { NgxMaskDirective } from 'ngx-mask';
 import { GestaoClienteService } from '../services/gestao-cliente.service';
 import { ClienteDialog } from '../cliente-dialog/cliente-dialog';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 @Component({
   selector: 'app-cliente-list',
@@ -42,7 +43,9 @@ import { ClienteDialog } from '../cliente-dialog/cliente-dialog';
     DynamicTableColumnDefDirective,
     TelefoneMaskPipe,
     CpfMaskPipe,
-    TitleCasePipe 
+    TitleCasePipe,
+    CurrencyMaskModule,
+    CurrencyPipe 
   ],
   templateUrl: './cliente-list.html',
   styleUrl: './cliente-list.scss'
@@ -76,7 +79,7 @@ export class ClienteList {
       title: 'Nome',
       sortColumn: 'nome',
       headerAttrs: {
-        class: 'w-25',
+        class: 'w-20',
       },
     },
     {
@@ -85,22 +88,40 @@ export class ClienteList {
       title: 'Contato',
       sortColumn: 'cpf',
       headerAttrs: {
-        class: 'w-25',
+        class: 'w-15',
       },
     },
     {
-      type: ColumnTypeEnum.DATA,
-      name: 'vl_debito',
-      title: 'Valor Débito',
+      type: ColumnTypeEnum.SLOT,
+      name: 'limite',
+      title: 'Limite',
       sortColumn: 'contato',
       headerAttrs: {
-        class: 'w-25',
+        class: 'w-15',
+      },
+    },
+    {
+      type: ColumnTypeEnum.SLOT,
+      name: 'debito',
+      title: 'Débito',
+      sortColumn: 'contato',
+      headerAttrs: {
+        class: 'w-15',
+      },
+    },
+    {
+      type: ColumnTypeEnum.SLOT,
+      name: 'saldo',
+      title: 'Saldo',
+      sortColumn: 'perfil',
+      headerAttrs: {
+        class: 'w-20',
       },
     },
     {
       type: ColumnTypeEnum.DATA,
-      name: 'saldo',
-      title: 'Saldo',
+      name: '_convenio',
+      title: 'Status convenio',
       sortColumn: 'perfil',
       headerAttrs: {
         class: 'w-20',
@@ -162,7 +183,7 @@ export class ClienteList {
         response.map((item) => {
           return {
             ...item,
-             _status: statusMap[item.status as StatusEnum] ?? '-'             
+            _convenio: statusMap[item.convenio as StatusEnum] ?? '-'             
           };
         })
       );
@@ -259,7 +280,7 @@ export class ClienteList {
 
     const dialogRef = this._dialog.open(ClienteDialog, {
       height: 'auto',
-      width: '800px',
+      width: '840px',
       disableClose: true,
       data,
     });

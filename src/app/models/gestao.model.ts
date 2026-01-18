@@ -16,7 +16,7 @@ export interface ClienteModel {
   cpf: string;
   contato: string;
   email: string;
-  status: StatusEnum;
+  convenio: StatusEnum;
   vl_debito: number;
   saldo: number;
   cep: string;

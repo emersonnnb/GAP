@@ -38,12 +38,23 @@
   ],
   "cliente": [
     {
-      "nome": "emerson",
+      "id": "05f5",
+      "nome": "Emerson",
       "cpf": "05909977776",
-      "email": "emersonnnb@hotmail.com",
-      "telefone": "21970397985",
-      "status": "I",
-      "id": "2ede"
+      "dtNascimento": "2026-01-02T03:00:00.000Z",
+      "email": "teste@teste.com",
+      "telefone": "21212121212",
+      "status": "A",
+      "cep": "26110480",
+      "logradouro": "Rua das Pedras",
+      "bairro": "Bom Pastor",
+      "numero": "21",
+      "cidade": "Belford Roxo",
+      "uf": "RJ",
+      "limite": 1500,
+      "debito": 1000,
+      "saldo": 500,
+      "convenio": "A"
     }
   ]
 }

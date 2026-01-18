@@ -20,6 +20,8 @@ import { CepMask } from '@app/shared/masks/cep.mask';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Domains } from '@app/services/buscaCep.service';
 import { GestaoClienteService } from '../services/gestao-cliente.service';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {provideNativeDateAdapter} from '@angular/material/core';
 
 @Component({
   selector: 'app-cliente-dialog',
@@ -30,10 +32,11 @@ import { GestaoClienteService } from '../services/gestao-cliente.service';
     MatRadioModule,
     RequiredFieldIndicatorDirective,
     MatTabsModule,
+    MatDatepickerModule,
   ],
   templateUrl: './cliente-dialog.html',
   styleUrl: './cliente-dialog.scss',
-  providers: [provideNgxMask()],
+  providers: [provideNgxMask(),provideNativeDateAdapter()],
 })
 export class ClienteDialog {
   cpfMask = CpfMask;
@@ -44,6 +47,7 @@ export class ClienteDialog {
   id!: number;
   form!: FormGroup;
   formModeEnum = FormModeEnum;
+  maxDate = new Date(new Date());
 
   private _fb = inject(FormBuilder);
   private _domains = inject(Domains);
@@ -92,15 +96,20 @@ export class ClienteDialog {
       cep: this._fb.control<string | null>(null, []),
       logradouro: this._fb.control<string | null>(null, []),
       bairro: this._fb.control<string | null>(null, []),
+      numero: this._fb.control<string | null>(null, []),
       cidade: this._fb.control<string | null>(null, []),
       uf: this._fb.control<string | null>(null, []),
+      limite: this._fb.control<number | null>(null, []),
+      debito: this._fb.control<number | null>({ value: null, disabled: true }, []),
+      saldo: this._fb.control<number | null>({ value: null, disabled: true }, []),
+      convenio: this._fb.control<boolean | null>(null, []),
     });
 
     this.form
       .get('cep')
       ?.valueChanges.pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe((cep) => {
-         if (cep.length === 8){
+        if (cep.length === 8) {
           this._domains.getCep(cep).subscribe((data) => {
             if (data) {
               this.form.patchValue({
@@ -111,7 +120,7 @@ export class ClienteDialog {
               });
             }
           });
-         }
+        }
       });
   }
 

@@ -59,5 +59,14 @@
     <ng-container *dynamicTableColumnDef="'nome'; let element">
       {{ (element?.nome | titlecase)  || '-' }}
     </ng-container>
+    <ng-container *dynamicTableColumnDef="'limite'; let element">
+      {{ (element?.limite  | currency:'BRL':'symbol':'1.2-2':'pt-BR')  || '-' }}
+    </ng-container>
+    <ng-container *dynamicTableColumnDef="'debito'; let element">
+      {{ (element?.debito  | currency:'BRL':'symbol':'1.2-2':'pt-BR')  || '-' }}
+    </ng-container>
+    <ng-container *dynamicTableColumnDef="'saldo'; let element">
+      {{ (element?.saldo  | currency:'BRL':'symbol':'1.2-2':'pt-BR')  || '-' }}
+    </ng-container>
   </app-dynamic-table>
   
