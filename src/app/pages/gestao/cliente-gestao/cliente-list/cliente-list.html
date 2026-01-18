@@ -1,0 +1,63 @@
+<form [formGroup]="searchForm">
+    <div class="row mt-4">
+      <div class="col-md-5 col-sm-12">
+        <lib-custom-select
+          class="w-100"
+          label="Pesquisar por"
+          formControlName="filtroPesquisa"
+          [multiple]="false"
+          type="select"
+          [options]="(searchByList$ | async) ?? []"
+          propertyId="id"
+          propertyName="label"
+          [nullDescription]="''"
+        />
+      </div>
+  
+      <div class="col-md-6">
+        @if (selectedSearchField() === 1) {
+        <mat-form-field class="w-100" appearance="fill">
+          <mat-label>Nome</mat-label>
+          <input
+            matInput
+            formControlName="nome"
+            [minlength]="3"
+            [maxlength]="150"
+          />
+        </mat-form-field>
+        } @if (selectedSearchField() === 2) {
+        <mat-form-field class="w-100" appearance="fill">
+          <mat-label>CPF</mat-label>
+          <input matInput formControlName="cpf" mask="000.000.000-00" />
+        </mat-form-field>
+        }
+      </div>
+      <div class="col-md-1 mb-3">
+        <lib-search-button
+          [form]="searchForm"
+          (clearFn)="doClear()"
+          (searchFn)="doSearch()"
+        />
+      </div>
+    </div>
+  </form>
+  
+  <app-dynamic-table
+    [columns]="columns"
+    [rows]="rows()"
+    [actions]="actions"
+    [pageSize]="pagination.pageSize"
+    [pageSizeOptions]="paginateOptionsEnum.PAGE_SIZE_OPTIONS"
+    (pageChange)="onPageChange($event)"
+    (sortChange)="onSortChange($event)"
+    (actionClick)="onActionClick($event)"
+    [totalElements]="rows()?.length || 0"
+  >
+    <ng-container *dynamicTableColumnDef="'telefone'; let element">
+      {{ element?.telefone | telefoneMask }}
+    </ng-container>  
+    <ng-container *dynamicTableColumnDef="'nome'; let element">
+      {{ (element?.nome | titlecase)  || '-' }}
+    </ng-container>
+  </app-dynamic-table>
+  

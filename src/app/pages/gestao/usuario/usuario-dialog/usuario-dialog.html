@@ -74,7 +74,7 @@
 
   @if (mode !== formModeEnum.VISUALIZAR) {
   <div class="p-2 d-flex justify-content-center gap-2">
-    <button class="w-100 btn btn-salvar mr-3" (click)="save()">Salvar</button>
+    <button class="w-100 btn btn-salvar mr-3" (click)="save()" [disabled]="form.invalid">Salvar</button>
     <button class="w-100 btn btn-secondary" (click)="close()">Cancelar</button>
   </div>
   }

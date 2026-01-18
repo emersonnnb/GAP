@@ -1,29 +1,49 @@
 {
   "usuario": [
     {
+      "id": "6984",
       "nome": "emerson",
       "cpf": "05909977776",
       "email": "teste@teste.com",
       "telefone": "21212121212",
       "senha": "2121321231",
-      "status": "A",
-      "id": "6984"
+      "status": "A"
     },
     {
-      "nome": "12342134234234",
-      "cpf": "05909977776",
-      "email": "wserwer@tesjhgvsjhg.com",
-      "status": "A",
-      "id": "f607"
+      "id": "7607",
+      "nome": "joao",
+      "cpf": "12345678901",
+      "email": "joao@teste.com",
+      "telefone": "21988887777",
+      "senha": "abc123",
+      "status": "A"
     },
     {
-      "id": "e0a3",
-      "nome": "werwerwer",
+      "id": "9001",
+      "nome": "maria",
+      "cpf": "98765432100",
+      "email": "maria@teste.com",
+      "telefone": "2122223333",
+      "senha": "senha123",
+      "status": "I"
+    },
+    {
+      "id": "1bf0",
+      "nome": "teste",
       "cpf": "05909977776",
       "email": "teste@teste.com",
-      "telefone": "23132132132",
-      "senha": "sdfsdfsdfsdf",
-      "status": "I"
+      "telefone": "21231321321",
+      "status": "A"
+    }
+  ],
+  "cliente": [
+    {
+      "nome": "emerson",
+      "cpf": "05909977776",
+      "email": "emersonnnb@hotmail.com",
+      "telefone": "21970397985",
+      "status": "I",
+      "id": "2ede"
     }
   ]
 }

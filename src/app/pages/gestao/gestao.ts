@@ -4,10 +4,15 @@ import { CustomTabs } from '@app/shared/custom-tabs/custom-tabs';
 import { UsuarioList } from './usuario/usuario-list/usuario-list';
 import { MatDialog } from '@angular/material/dialog';
 import { UsuarioDialog } from './usuario/usuario-dialog/usuario-dialog';
+import { ClienteList } from './cliente-gestao/cliente-list/cliente-list';
 
 @Component({
   selector: 'app-gestao',
-  imports: [CustomTabs, UsuarioList],
+  imports: [
+    CustomTabs, 
+    UsuarioList,
+    ClienteList
+  ],
   templateUrl: './gestao.html',
 })
 export class Gestao {
