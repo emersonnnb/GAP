@@ -1,5 +1,4 @@
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -21,11 +20,11 @@ import { Observable, Subject, takeUntil, filter } from 'rxjs';
 import { ActionClickEvent, Actions, Column } from '@app/shared/interfaces';
 import { ActionColumnAttr } from '@app/shared/interfaces/action-column-attr';
 import { ButtonPositionEnum, ColumnTypeEnum, PaginateOptionsEnum, TitleTypeEnum } from '@app/shared/enums';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-dynamic-table',
-  imports: [
-    CommonModule,
+  imports: [    
     MatTableModule,
     MatIconModule,
     MatCheckboxModule,
@@ -39,7 +38,9 @@ import { ButtonPositionEnum, ColumnTypeEnum, PaginateOptionsEnum, TitleTypeEnum 
     DynamicTableColumnDefDirective,
     HeaderTemplateDefDirective,
     FooterTemplateDefDirective,
-    CustomPaginatorComponent
+    CustomPaginatorComponent,
+    NgTemplateOutlet,
+    NgClass
   ],
   animations: [
     trigger('detailExpand', [

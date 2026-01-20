@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -21,7 +20,7 @@ import { TypePagamentoEnum } from '@app/enums/type-pagamento-enum';
 @Component({
   selector: 'app-vendas',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatDialogModule],
+  imports: [FormsModule, MatDialogModule],
   templateUrl: './vendas.html',
   styleUrl: './vendas.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

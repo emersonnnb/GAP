@@ -6,8 +6,7 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -22,8 +21,7 @@ import { Vendas } from '@app/pages/vendas/vendas';
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [    
     MatIconModule,
     MatToolbarModule,
     MatMenuModule,

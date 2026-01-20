@@ -1,12 +1,10 @@
 import { Component, EventEmitter, Input, Output, signal, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { CustomTabModel } from '@app/models/custom-tab.model';
-
 
 @Component({
   selector: 'lib-custom-tabs',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './custom-tabs.html',
   styleUrls: ['./custom-tabs.scss'],
   encapsulation: ViewEncapsulation.None
