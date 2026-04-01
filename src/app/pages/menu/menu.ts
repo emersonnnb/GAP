@@ -15,6 +15,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MenuItem } from '@app/models/menu.model';
+import { UserAuthService } from '@app/services/user-auth';
 
 @Component({
   selector: 'app-menu',
@@ -37,6 +38,7 @@ export class Menu implements OnInit {
   sidebarCollapsed: WritableSignal<boolean> = signal(false);
 
   private router = inject(Router);
+  private userAuthService = inject(UserAuthService);
 
   menuItems: MenuItem[] = [
     { label: 'Dashboard', icon: 'monitoring', link: 'dashboard' },
@@ -78,6 +80,11 @@ export class Menu implements OnInit {
 
   toggleSidebar() {
     this.sidebarCollapsed.set(!this.sidebarCollapsed());
+  }
+
+  logout() {
+    this.userAuthService.clearSession();
+    this.router.navigate(['/login']);
   }
 
   private syncSelectedMenu(url: string) {

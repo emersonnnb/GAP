@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
@@ -9,9 +10,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserService } from '@app/services/user';
 import { UserAuthService } from '@app/services/user-auth';
 import { Router } from '@angular/router';
+import { AffirmationMessages } from '@app/shared/enums/messages.enum';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +27,7 @@ import { Router } from '@angular/router';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    MatSnackBarModule,
   ],
 })
 export class Login {
@@ -35,6 +39,7 @@ export class Login {
   private userService = inject(UserService);
   private readonly userAuthService = inject(UserAuthService);
   private readonly router = inject(Router);
+  private readonly snackBar = inject(MatSnackBar);
 
   constructor() {
     this.buildForm();
@@ -64,7 +69,15 @@ export class Login {
         this.userAuthService.setUserToken(response.token);
         this.router.navigate(['/menu']);
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
+        const message =
+          error?.error?.mensagem ||
+          error?.error?.message ||
+          AffirmationMessages.SYSTEM_UNAVAILABLE;
+
+        this.snackBar.open(message, 'Fechar', {
+          duration: 3000,
+        });
         console.error('Login failed:', error);
       },
     });
