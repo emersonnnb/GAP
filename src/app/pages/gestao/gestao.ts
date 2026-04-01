@@ -5,6 +5,7 @@ import { UsuarioList } from './usuario/usuario-list/usuario-list';
 import { MatDialog } from '@angular/material/dialog';
 import { UsuarioDialog } from './usuario/usuario-dialog/usuario-dialog';
 import { ClienteList } from './cliente-gestao/cliente-list/cliente-list';
+import { FormModeEnum } from '@app/shared/enums/form-mode.enum';
 
 @Component({
   selector: 'app-gestao',
@@ -63,7 +64,9 @@ export class Gestao {
     const dialogRef = this.dialog.open(component,{
       height: 'auto',
       width: '800px',
-      data: {},
+      data: {
+        mode: FormModeEnum.CADASTRAR,
+      },
       disableClose: true
     });
 

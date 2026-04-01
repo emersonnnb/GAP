@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
-import { UsuarioModel } from '@app/models/gestao.model';
+import { UsuarioModel, UsuarioPayload } from '@app/models/gestao.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,15 +25,15 @@ export class GestaoUsuarioService {
     return this.http.get<UsuarioModel>(`${this.baseUrl}/${id}`);
   }
 
-  create(payload: Omit<UsuarioModel, 'id'>): Observable<UsuarioModel> {
+  create(payload: UsuarioPayload): Observable<UsuarioModel> {
     return this.http.post<UsuarioModel>(this.baseUrl, payload);
   }
 
-  update(id: number, payload: UsuarioModel): Observable<UsuarioModel> {
+  update(id: number, payload: UsuarioPayload): Observable<UsuarioModel> {
     return this.http.put<UsuarioModel>(`${this.baseUrl}/${id}`, payload);
   }
 
-  patch(id: number, payload: Partial<UsuarioModel>): Observable<UsuarioModel> {
+  patch(id: number, payload: Partial<UsuarioPayload>): Observable<UsuarioModel> {
     return this.http.patch<UsuarioModel>(`${this.baseUrl}/${id}`, payload);
   }
 

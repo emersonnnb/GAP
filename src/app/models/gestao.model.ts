@@ -4,10 +4,19 @@ export interface UsuarioModel {
   id: number;
   nome: string;
   cpf: string;
-  contato: string;
+  email: string;
+  telefone?: string;
   status: StatusEnum;
-  perfil: 'ADMIN' | 'GESTOR' | 'USUARIO';
-  senha: string;
+  login?: string;
+}
+
+export interface UsuarioPayload {
+  nome: string;
+  cpf: string;
+  email: string;
+  telefone?: string;
+  senha?: string;
+  status: StatusEnum;
 }
 
 export interface ClienteModel {

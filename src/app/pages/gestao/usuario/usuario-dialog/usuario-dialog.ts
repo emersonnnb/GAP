@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UsuarioPayload } from '@app/models/gestao.model';
 import { RequiredFieldIndicatorDirective } from '@app/shared/directive/required-field-indicator.directive';
 import { StatusEnum } from '@app/shared/enums/status.enum';
 import { CpfMask } from '@app/shared/masks/cpf.mask';
@@ -125,8 +126,8 @@ export class UsuarioDialog {
 
     const request$ =
       this.mode === FormModeEnum.EDITAR && this.id
-        ? this._gestaoUsuarioService.update(this.id, payload)
-        : this._gestaoUsuarioService.create(payload);
+        ? this._gestaoUsuarioService.update(this.id, payload as UsuarioPayload)
+        : this._gestaoUsuarioService.create(payload as UsuarioPayload);
 
     request$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe({
       next: () => {
