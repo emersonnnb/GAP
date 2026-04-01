@@ -1,54 +1,61 @@
 import { Routes } from '@angular/router';
-import { Login } from './pages/login/login';
-import { Menu } from './pages/menu/menu';
-import { authGuard } from './guards/auth-guard';
-import { RelatorioProduto } from './pages/produtos/relatorio-produto/relatorio-produto';
-import { Gestao } from './pages/gestao/gestao';
-import { Produtos } from './pages/produtos/produtos';
-import { Vendas } from './pages/vendas/vendas';
 
 export const routes: Routes = [
   {
     path: 'login',
-    component: Login,
+    loadComponent: () =>
+      import('./pages/login/login').then((module) => module.Login),
   },
   {
     path: '',
-    redirectTo: '/login',
-    pathMatch: 'full',
-  },
-  {
-    path: '',
-    component: Menu,
-    //canActivateChild: [authGuard],
+    loadComponent: () =>
+      import('./pages/menu/menu').then((module) => module.Menu),
     children: [
       {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
+      {
         path: 'menu',
-        component: Menu,
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
       },
       {
         path: 'dashboard',
-        component: RelatorioProduto,
+        loadComponent: () =>
+          import('./pages/produtos/relatorio-produto/relatorio-produto').then(
+            (module) => module.RelatorioProduto
+          ),
       },
       {
         path: 'produtos',
-        component: Produtos,
+        loadComponent: () =>
+          import('./pages/produtos/produtos').then((module) => module.Produtos),
       },
       {
         path: 'gestao',
-        component: Gestao,
+        loadComponent: () =>
+          import('./pages/gestao/gestao').then((module) => module.Gestao),
       },
       {
         path: 'financeiro',
-        component: RelatorioProduto,
+        loadComponent: () =>
+          import('./pages/produtos/relatorio-produto/relatorio-produto').then(
+            (module) => module.RelatorioProduto
+          ),
       },
       {
         path: 'configuracao',
-        component: RelatorioProduto,
+        loadComponent: () =>
+          import('./pages/produtos/relatorio-produto/relatorio-produto').then(
+            (module) => module.RelatorioProduto
+          ),
       },
       {
         path: 'vendas',
-        component: Vendas,       
+        loadComponent: () =>
+          import('./pages/vendas/vendas').then((module) => module.Vendas),
       },
     ],
   },

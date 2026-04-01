@@ -1,11 +1,11 @@
-<div class="app-container">  
+<div class="app-container">
   <div class="sidebar" [class.collapsed]="sidebarCollapsed()">
     <div class="logo">
       <img src="assets/images/icon_GAP.png" alt="Logo" />
       <span class="collapse-icon material-symbols-outlined" (click)="toggleSidebar()">
         chevron_left
       </span>
-    </div>    
+    </div>
 
     <div class="menu">
       @for (item of menuItems; track item.link) {
@@ -22,37 +22,28 @@
       }
     </div>
   </div>
-  
-  <div class="main" >
+
+  <div class="main">
     <div class="navbar">
       <div>
-        <h1>Olá, Admin!</h1>
+        <h1>Ola, Admin!</h1>
         <h5>Organize, otimize e avance com agilidade.</h5>
       </div>
 
       <div class="profile">
         <div class="profile-item">
           <span class="material-symbols-outlined"> account_circle </span>
-          <span>
-            Perfil
-          </span>
+          <span>Perfil</span>
         </div>
         <div class="profile-item">
           <span class="material-symbols-outlined"> logout </span>
-          <span>
-            Sair
-          </span>
+          <span>Sair</span>
         </div>
       </div>
     </div>
 
     <div class="content">
-      @if (selectedMenu() === 'dashboard') { <p>Conteúdo do Dashboard</p> }
-      @if (selectedMenu() === 'produtos') { <app-produtos> </app-produtos> }
-      @if (selectedMenu() === 'gestao') { <app-gestao></app-gestao>}
-      @if (selectedMenu() === 'financeiro') { <p>Conteúdo Financeiro</p> }
-      @if (selectedMenu() === 'configuracao') { <p>Configuração do Sistema</p> }
-      @if (selectedMenu() === 'vendas') { <app-vendas> </app-vendas>}
+      <router-outlet />
     </div>
   </div>
 </div>

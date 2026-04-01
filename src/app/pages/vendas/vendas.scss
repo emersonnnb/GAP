@@ -77,7 +77,6 @@ $bd-14: 1px solid rgba(15, 23, 42, 0.14);
 /* =========================
    LAYOUT (CATALOGO / CUPOM)
 ========================= */
-.left,
 .right {
   @include col;
 }
@@ -230,10 +229,6 @@ $bd-14: 1px solid rgba(15, 23, 42, 0.14);
     cursor: not-allowed;
   }
 
-  &.btn--primary:hover {
-    filter: brightness(0.98);
-  }
-
   &.btn--ghost {
     background: transparent;
   }
@@ -256,10 +251,6 @@ $bd-14: 1px solid rgba(15, 23, 42, 0.14);
 /* =========================
    TEXT UTILS
 ========================= */
-.rightText {
-  text-align: right;
-}
-
 .strong {
   font-weight: 900;
   color: $ink;
@@ -309,11 +300,6 @@ $bd-14: 1px solid rgba(15, 23, 42, 0.14);
       }
     }
 
-    .section-scan {
-      display: flex;
-      flex-direction: column;
-    }
-
     /* Tema do input no header via vars (sem duplicar bloco inteiro) */
     .input {
       --i-pad: #{$p-14} #{$p-14};
@@ -351,92 +337,6 @@ $bd-14: 1px solid rgba(15, 23, 42, 0.14);
           color: $ink;
         }
       }
-    }
-  }
-
-  /* =========================
-     MODAL
-  ========================= */
-  .modal {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: grid;
-    place-items: center;
-    padding: 16px;
-
-    .modal__backdrop {
-      position: absolute;
-      inset: 0;
-      background: rgba(2, 6, 23, 0.55);
-      backdrop-filter: blur(2px);
-    }
-
-    .modal__panel {
-      position: relative;
-      z-index: 1;
-      width: min(520px, 100%);
-
-      border-radius: $r-16;
-      background: #fff;
-      border: 1px solid rgba(15, 23, 42, 0.1);
-      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.25);
-
-      padding: 14px;
-    }
-
-    .modal__title {
-      font-weight: 900;
-      font-size: 14px;
-      color: $ink;
-      margin-bottom: 12px;
-    }
-
-    .modal__content {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-
-      label {
-        font-size: 12px;
-        color: rgba(15, 23, 42, 0.7);
-        font-weight: 700;
-      }
-    }
-
-    .kpi {
-      @include card($r-14, $bd-08, #f8fafc, $p-12);
-
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 10px;
-
-      .kpi__label {
-        font-size: 12px;
-        font-weight: 900;
-        letter-spacing: 0.4px;
-        opacity: 0.8;
-      }
-
-      .kpi__value {
-        font-size: 20px;
-        font-weight: 1000;
-        color: $ink;
-      }
-    }
-
-    .modal__actions {
-      margin-top: 12px;
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
     }
   }
 
