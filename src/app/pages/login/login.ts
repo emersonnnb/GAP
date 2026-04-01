@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { UserService } from '@app/services/user';
 import { UserAuthService } from '@app/services/user-auth';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -32,8 +33,8 @@ export class Login {
 
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
-  private readonly _userAuthService = inject(UserAuthService);
-  private readonly _router = inject(Router);
+  private readonly userAuthService = inject(UserAuthService);
+  private readonly router = inject(Router);
 
   constructor() {
     this.buildForm();
@@ -52,24 +53,20 @@ export class Login {
 
   onSubmit() {
     if (this.form.invalid) {
-      console.log(this.form.value);
       this.form.markAllAsTouched();
       return;
     }
 
-    console.log('Form Value:', this.form.value);
-    this._router.navigate(['/menu']);
-    //   const payload = this.form.getRawValue();
-    //   console.log('Payload:', payload);
-    //   this.userService.login(payload).subscribe({
-    //     next: (response) => {
-    //       console.log('Login successful:', response);
-    //       this._userAuthService.setUserToken(response.token);
-    //       this._router.navigate(['/menu']);
-    //     },
-    //     error: (error) => {
-    //       console.error('Login failed:', error);
-    //     }
-    //   });
+    const payload = this.form.getRawValue() as { login: string; password: string };
+
+    this.userService.login(payload).subscribe({
+      next: (response) => {
+        this.userAuthService.setUserToken(response.token);
+        this.router.navigate(['/menu']);
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+      },
+    });
   }
 }

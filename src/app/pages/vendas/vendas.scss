@@ -1,18 +1,71 @@
+/* =========================
+   TOKENS / HELPERS
+========================= */
+$ink: #0f172a;
+$muted: #334155;
+
+$r-10: 10px;
+$r-12: 12px;
+$r-14: 14px;
+$r-16: 16px;
+
+$p-10: 10px;
+$p-12: 12px;
+$p-14: 14px;
+
+$bd-06: 1px solid rgba(15, 23, 42, 0.06);
+$bd-08: 1px solid rgba(15, 23, 42, 0.08);
+$bd-12: 1px solid rgba(15, 23, 42, 0.12);
+$bd-14: 1px solid rgba(15, 23, 42, 0.14);
+
+@mixin col {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin row-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+@mixin card($radius: $r-14, $border: $bd-08, $bg: #fff, $padding: $p-12) {
+  border-radius: $radius;
+  border: $border;
+  background: $bg;
+  padding: $padding;
+}
+
+/* =========================
+   INPUT (base + temas via vars)
+========================= */
 .input {
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  background: #f8fafc;
-  color: #0f172a;
+  /* tema default */
+  --i-pad: #{$p-10} 12px;
+  --i-radius: #{$r-12};
+  --i-border: #{$bd-12};
+  --i-bg: #f8fafc;
+  --i-color: #{$ink};
+  --i-ph: rgba(15, 23, 42, 0.45);
+  --i-focus-border: rgba(15, 23, 42, 0.26);
+  --i-focus-bg: #fff;
+
+  padding: var(--i-pad);
+  border-radius: var(--i-radius);
+  border: var(--i-border);
+  background: var(--i-bg);
+  color: var(--i-color);
   outline: none;
 
   &::placeholder {
-    color: rgba(15, 23, 42, 0.45);
+    color: var(--i-ph);
   }
 
   &:focus {
-    border-color: rgba(15, 23, 42, 0.26);
-    background: #fff;
+    border-color: var(--i-focus-border);
+    background: var(--i-focus-bg);
   }
 
   &.input--sm {
@@ -21,40 +74,36 @@
   }
 }
 
-/* ====== CATALOGO (esquerda) ====== */
-.left {
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
+/* =========================
+   LAYOUT (CATALOGO / CUPOM)
+========================= */
+.left,
+.right {
+  @include col;
 }
 
 .catalog {
-  display: flex;
-  flex-direction: column;
+  @include col;
   gap: 6px;
-  min-height: 0;
 }
 
 .catalog__head,
 .catalog__row {
-  display: flex;
-  justify-content: space-between;  
-  gap: 10px;
-  align-items: center;
+  @include row-between;
 }
 
 .catalog__head {
-    padding: 10px;
-    border-radius: 12px;
-    background: #f1f5f9;
-    color: rgba(15, 23, 42, 0.7);
-    font-size: 12px;
+  padding: $p-10;
+  border-radius: $r-12;
+  background: #f1f5f9;
+  color: rgba(15, 23, 42, 0.7);
+  font-size: 12px;
 }
 
 .catalog__row {
-  padding: 10px;
-  border-radius: 12px;
-  border: 1px solid rgba(15, 23, 42, 0.06);
+  padding: $p-10;
+  border-radius: $r-12;
+  border: $bd-06;
   background: #fff;
 
   &:hover {
@@ -62,18 +111,9 @@
   }
 }
 
-/* ====== CUPOM (direita) ====== */
-.right {
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-}
-
 .cupom {
-  display: flex;
-  flex-direction: column;
+  @include col;
   gap: 10px;
-  min-height: 0;
   flex: 1;
 }
 
@@ -90,9 +130,9 @@
   gap: 10px;
   align-items: center;
 
-  padding: 10px;
-  border-radius: 12px;
-  border: 1px solid rgba(15, 23, 42, 0.06);
+  padding: $p-10;
+  border-radius: $r-12;
+  border: $bd-06;
   background: #fff;
   margin-bottom: 8px;
 }
@@ -110,7 +150,7 @@
     width: 28px;
     text-align: center;
     font-weight: 900;
-    color: #0f172a;
+    color: $ink;
   }
 }
 
@@ -130,18 +170,15 @@
 }
 
 .totals__row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  @include row-between;
 }
 
 .totalBig {
   margin-top: 2px;
-  padding: 12px;
-  border-radius: 14px;
+  padding: $p-12;
+  border-radius: $r-14;
 
-  background: #0f172a;
+  background: $ink;
   color: #fff;
 
   display: flex;
@@ -162,23 +199,25 @@
 
 .pay {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 
   .pay__btn {
     padding: 13px 10px;
     font-weight: 900;
-    border-radius: 12px;
+    border-radius: $r-12;
   }
 }
 
-/* botões */
+/* =========================
+   BUTTONS
+========================= */
 .btn {
-  padding: 12px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(15, 23, 42, 0.14);
+  padding: $p-12 $p-12;
+  border-radius: $r-12;
+  border: $bd-14;
   background: #fff;
-  color: #0f172a;
+  color: $ink;
   cursor: pointer;
   font-weight: 700;
 
@@ -191,10 +230,8 @@
     cursor: not-allowed;
   }
 
-  &.btn--primary {
-    &:hover {
-      filter: brightness(0.98);
-    }
+  &.btn--primary:hover {
+    filter: brightness(0.98);
   }
 
   &.btn--ghost {
@@ -202,7 +239,7 @@
   }
 
   &.btn--sm {
-    padding: 10px 10px;
+    padding: 10px;
   }
 
   &.btn--icon {
@@ -212,26 +249,25 @@
     display: grid;
     place-items: center;
     font-weight: 900;
-    border-radius: 10px;
+    border-radius: $r-10;
   }
 }
 
+/* =========================
+   TEXT UTILS
+========================= */
 .rightText {
-  text-align: right;
-}
-
-.right {
   text-align: right;
 }
 
 .strong {
   font-weight: 900;
-  color: #0f172a;
+  color: $ink;
 }
 
 .muted {
   opacity: 0.7;
-  color: #334155;
+  color: $muted;
 }
 
 .mono {
@@ -244,6 +280,9 @@
   padding: 18px 10px;
 }
 
+/* =========================
+   PAGE CONTAINER / HEADER / MAIN
+========================= */
 .container {
   display: flex;
   flex-direction: column;
@@ -254,9 +293,8 @@
     display: flex;
     gap: 8px;
     align-items: center;
-    padding: 12px 14px;
-    border-radius: 14px;
-    background: #ffffff;
+
+    @include card($r-14, 0, #fff, 12px 14px);
     color: #270963;
 
     .section-user {
@@ -276,23 +314,17 @@
       flex-direction: column;
     }
 
+    /* Tema do input no header via vars (sem duplicar bloco inteiro) */
     .input {
-      padding: 14px 14px;
+      --i-pad: #{$p-14} #{$p-14};
+      --i-border: 2px solid rgba(255, 255, 255, 0.18);
+      --i-bg: rgb(39 9 99 / 67%);
+      --i-color: #dad8df;
+      --i-ph: rgba(255, 255, 255, 0.55);
+      --i-focus-border: rgba(255, 255, 255, 0.18);
+      --i-focus-bg: rgba(39, 9, 99, 0.67);
+
       font-size: 15px;
-      border-radius: 12px;
-      border: 2px solid rgba(255, 255, 255, 0.18);
-      background: rgb(39 9 99 / 67%);
-      color: #dad8df;
-      outline: none;
-
-      &::placeholder {
-        color: rgba(255, 255, 255, 0.55);
-      }
-
-      &:focus {
-        border: 2px solid rgba(255, 255, 255, 0.18);
-        background: rgba(39, 9, 99, 0.67);
-      }
     }
   }
 
@@ -302,34 +334,33 @@
     margin-top: 12px;
 
     .card {
-      border-radius: 14px;
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      background: #fff;
-      padding: 12px;
+      @include card;
 
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.06);
+      box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.06),
+        0 8px 24px rgba(0, 0, 0, 0.06);
 
       .card__head {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
+        @include row-between;
         margin-bottom: 10px;
 
         .title {
           font-weight: 900;
           font-size: 13px;
           letter-spacing: 0.2px;
-          color: #0f172a;
+          color: $ink;
         }
       }
     }
   }
 
+  /* =========================
+     MODAL
+  ========================= */
   .modal {
     position: fixed;
     inset: 0;
-    z-index: 9999; // garante que fica acima de tudo
+    z-index: 9999;
     display: grid;
     place-items: center;
     padding: 16px;
@@ -337,16 +368,16 @@
     .modal__backdrop {
       position: absolute;
       inset: 0;
-      background: rgba(2, 6, 23, 0.55); // "escurece" fundo
+      background: rgba(2, 6, 23, 0.55);
       backdrop-filter: blur(2px);
     }
 
     .modal__panel {
       position: relative;
       z-index: 1;
-
       width: min(520px, 100%);
-      border-radius: 16px;
+
+      border-radius: $r-16;
       background: #fff;
       border: 1px solid rgba(15, 23, 42, 0.1);
       box-shadow: 0 18px 60px rgba(0, 0, 0, 0.25);
@@ -357,7 +388,7 @@
     .modal__title {
       font-weight: 900;
       font-size: 14px;
-      color: #0f172a;
+      color: $ink;
       margin-bottom: 12px;
     }
 
@@ -380,10 +411,7 @@
     }
 
     .kpi {
-      border-radius: 14px;
-      background: #f8fafc;
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      padding: 12px;
+      @include card($r-14, $bd-08, #f8fafc, $p-12);
 
       display: flex;
       align-items: baseline;
@@ -400,7 +428,7 @@
       .kpi__value {
         font-size: 20px;
         font-weight: 1000;
-        color: #0f172a;
+        color: $ink;
       }
     }
 
@@ -413,17 +441,19 @@
   }
 
   @media (max-width: 992px) {
-
-    header,.item {
+    header,
+    .item {
       display: block;
     }
+
     main {
       display: block;
-      
+
       section {
         margin-bottom: 12px;
       }
     }
+
     .qty {
       justify-content: space-between;
     }
